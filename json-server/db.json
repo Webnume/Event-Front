@@ -183,7 +183,7 @@
       "title": "Team building - Cooking Party Challenge",
       "updatedAt": "2020-04-27T12:35:18.700Z",
       "numberOfParticipants": 8,
-      "remainingTickets": 31,
+      "remainingTickets": 0,
       "state": "archived"
     },
     {
@@ -204,7 +204,7 @@
       "title": "Galette des rois: qui aura la fève ?",
       "updatedAt": "2020-04-27T12:35:18.700Z",
       "numberOfParticipants": 8,
-      "remainingTickets": 12,
+      "remainingTickets": 8,
       "state": "archived"
     }
   ],
