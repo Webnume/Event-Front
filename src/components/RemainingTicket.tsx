@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import GLOBALS from "../utils/Globals";
 
-function RemainingTicket({ children }) {
+type RemainingTicketProps = {
+  children: number;
+};
+
+function RemainingTicket({ children }: RemainingTicketProps) {
   const RemainingTicketWrapper = styled.section`
     display: flex;
     flex-direction: column;

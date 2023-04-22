@@ -1,9 +1,15 @@
 import styled from "styled-components";
 import { useAxios } from "../hooks/useAxios";
 import GLOBALS from "../utils/Globals";
-// import H3Title from "./H3Title";
 
-function Participants({ children }) {
+
+type ParticipantsProps = {
+  children: number;
+};
+
+  
+
+function Participants({ children }: ParticipantsProps) {
   const { response, error, loading } = useAxios({
     method: "GET",
     url: "/bookings",
@@ -13,6 +19,7 @@ function Participants({ children }) {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
   `;
 
   const CirclesWrapper = styled.section`
@@ -20,14 +27,19 @@ function Participants({ children }) {
     align-items: center;
   `;
 
+
   const ParticipantsImageWrapper = styled.section`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-right: -20px;
     height: 40px;
     width: 40px;
     border-radius: 50%;
-    background-color: #eaeaea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: green;
+    font-weight: 400;
+    font-size: 14px;
   `;
 
   const ParticipantsImage = styled.img`
@@ -52,11 +64,17 @@ function Participants({ children }) {
     line-height: 22px;
   `;
 
+  const participantWithNoAvatar = (firstName, lastName) => {
+    const formatName = (name) => {
+      return name.charAt(0).toUpperCase();
+    };
+
+    return [formatName(firstName), formatName(lastName)];
+  };
+
   return (
     <>
       <ParticipantsWrapper>
-        {console.log(response)}
-        {/* <H3Title>Participants</H3Title> */}
         {loading && <div>loading...</div>}
         {error && <div>error</div>}
         {response && (
@@ -65,11 +83,16 @@ function Participants({ children }) {
               (participant, i) =>
                 i < 3 && (
                   <ParticipantsImageWrapper key={participant.user.id}>
-                    {participant.user.avatar.url && (
+                    {Object.keys(participant.user.avatar).length !== 0 ? (
                       <ParticipantsImage
                         src={participant.user.avatar.url}
                         alt={participant.user.firstName}
                       />
+                    ) : (
+                      participantWithNoAvatar(
+                        participant.user.firstName,
+                        participant.user.lastName
+                      )
                     )}
                   </ParticipantsImageWrapper>
                 )

@@ -1,15 +1,17 @@
 import "./App.css";
-import Events from "./pages/Events";
+import EventsList from "./pages/EventsList";
 import styled from "styled-components";
+import EventDetails from "./pages/EventDetails";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 
 function App() {
   const MainWrapper = styled.section`
     display: flex;
     flex-direction: column;
     align-items: start;
-    padding: 4em;
+    padding: 2rem;
     background: white;
-    border: 1px solid #eaeaea;
   `;
 
   const H1 = styled.h1`
@@ -20,10 +22,18 @@ function App() {
   `;
 
   return (
+    <BrowserRouter  >
     <MainWrapper>
       <H1>Événements</H1>
-      <Events />
+      {/* <Events /> */}
+      {/* <EventDetails /> */}
     </MainWrapper>
+      <Routes>
+        <Route path="/" element={<EventsList/>} />
+        <Route path="/eventDetails/:eventID" element={<EventDetails/>} />
+       {/* <Route path="*" element={<ErrorPage />} /> */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 

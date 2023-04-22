@@ -9,7 +9,7 @@ type AxiosParams = {
 
 axios.defaults.baseURL = "http://localhost:3000";
 
-export const useAxios = (axiosParams) => {
+export const useAxios = (axiosParams: AxiosParams) => {
   const [response, setResponse] = useState(undefined);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
