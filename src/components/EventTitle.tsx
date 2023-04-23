@@ -3,9 +3,10 @@ import GLOBALS from "../utils/Globals";
 
 type EventTitleProps = {
   children: string;
+  detailPage?: boolean;
 };
 
-function EventTitle({ children }: EventTitleProps) {
+function EventTitle({ children, detailPage }: EventTitleProps) {
   const EventTitleWrapper = styled.h2`
     font-size: 1.2em;
     text-align: center;
@@ -13,9 +14,12 @@ function EventTitle({ children }: EventTitleProps) {
     margin: 0;
     text-align: left;
     margin-left: 1rem;
+    grid-area: ${(props) => (props.detailPage ? "3/2/auto/auto" : "1 / 2 / 2 / 3")} } ;
   `;
 
-  return <EventTitleWrapper>{children}</EventTitleWrapper>;
+  return (
+    <EventTitleWrapper detailPage={detailPage}>{children}</EventTitleWrapper>
+  );
 }
 
 export default EventTitle;

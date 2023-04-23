@@ -3,6 +3,7 @@ import EventsList from "./pages/EventsList";
 import styled from "styled-components";
 import EventDetails from "./pages/EventDetails";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import GLOBALS from "./utils/Globals";
 
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
     flex-direction: column;
     align-items: start;
     padding: 2rem;
-    background: white;
+    background: ${GLOBALS.COLORS.WHITE};
   `;
 
   const H1 = styled.h1`

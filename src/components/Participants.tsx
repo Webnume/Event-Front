@@ -1,15 +1,14 @@
 import styled from "styled-components";
 import { useAxios } from "../hooks/useAxios";
 import GLOBALS from "../utils/Globals";
-
+import H3Title from "./H3Title";
 
 type ParticipantsProps = {
   children: number;
+  detailPage?: boolean;
 };
 
-  
-
-function Participants({ children }: ParticipantsProps) {
+function Participants({ children, detailPage }: ParticipantsProps) {
   const { response, error, loading } = useAxios({
     method: "GET",
     url: "/bookings",
@@ -20,13 +19,14 @@ function Participants({ children }: ParticipantsProps) {
     flex-direction: column;
     align-items: center;
     position: relative;
+    grid-area: 1 / 3 / span 2/ auto;
+    grid-area: ${(props) => props.detailPage && "8 / 2 / auto / auto"} } ;
   `;
 
   const CirclesWrapper = styled.section`
     display: flex;
-    align-items: center;
+    align-items: f;
   `;
-
 
   const ParticipantsImageWrapper = styled.section`
     margin-right: -20px;
@@ -34,12 +34,13 @@ function Participants({ children }: ParticipantsProps) {
     width: 40px;
     border-radius: 50%;
     display: flex;
-    align-items: center;
+    align-items: f;
     justify-content: center;
-    color: white;
+    color: ${GLOBALS.COLORS.WHITE};
     background-color: green;
     font-weight: 400;
     font-size: 14px;
+    align-items: center;
   `;
 
   const ParticipantsImage = styled.img`
@@ -51,7 +52,7 @@ function Participants({ children }: ParticipantsProps) {
 
   const ParticipantsNumber = styled.span`
     border: 1px solid ${GLOBALS.COLORS.LIGHTER_GREY};
-    background-color: white;
+    background-color: ${GLOBALS.COLORS.WHITE};
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -74,9 +75,11 @@ function Participants({ children }: ParticipantsProps) {
 
   return (
     <>
-      <ParticipantsWrapper>
+      <ParticipantsWrapper detailPage={detailPage}>
         {loading && <div>loading...</div>}
         {error && <div>error</div>}
+
+        <H3Title column={3}>Participants</H3Title>
         {response && (
           <CirclesWrapper>
             {response.map(

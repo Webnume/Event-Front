@@ -9,6 +9,8 @@ import EventDate from "../components/EventDate";
 import Price from "../components/Price";
 import H3Title from "../components/H3Title";
 import { useParams } from "react-router-dom";
+import EndAtDate from "../components/EndAtDate";
+import Reservation from "../components/Reservation";
 
 function EventDetails() {
   const { eventID } = useParams<{ eventID: string }>();
@@ -19,40 +21,71 @@ function EventDetails() {
   });
 
   const EventDetailsWrapper = styled.section`
-    padding: 4em;
+    display: flex;
+    gap: 16px;
+    padding: 1em;
     background: ${GLOBALS.COLORS.GREYBLUE1};
     border-radius: 1rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(7, 1fr);
+    max-width: 1375px;
+  `;
+  const MainWrapper = styled.section`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 16px;
   `;
 
   const EventWrapper = styled.section`
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     margin-bottom: 1rem;
-    background-color: white;
-    padding: 1rem;
+    background-color: ${GLOBALS.COLORS.WHITE};
+    padding: 1rem 1rem 1rem 1.5rem;
+    max-width: 874px;
     border-radius: 0.75rem;
   `;
+
+  const DescriptionWrapper = styled.p`
+    font-weight: 400;
+    font-size: 14px;
+    max-width: 706px;
+    color: ${GLOBALS.COLORS.GREY7}};
+  `;
+
+  let price = response?.price;
 
   return (
     <EventDetailsWrapper>
       {loading && <div>loading...</div>}
       {error && <div>error</div>}
       {response && (
-        <EventWrapper>
-          <H3Title column={1} goBackbBreadCrumb >
+        <MainWrapper>
+          <H3Title column={1} goBackBreadCrumb>
             Événements
           </H3Title>
-          <Image url={response.image.url} alt={response.title} detailPage />
-          <EventTitle>{response.title}</EventTitle>
-          <EventDate>{[response.startAt, response.endAt]}</EventDate>
-          <H3Title column={4}>Places restantes</H3Title>
-          <RemainingTicket>{response.remainingTickets}</RemainingTicket>
-          <H3Title column={3}>Participants</H3Title>
-          <Participants>{response.numberOfParticipants}</Participants>
-          <Price>{response.price === "0.0" ? "Gratuit" : response.price}</Price>
-        </EventWrapper>
+          <EventWrapper>
+            <Image url={response.image.url} alt={response.title} detailPage />
+            <EventTitle detailPage>{response.title}</EventTitle>
+            <EventDate detailPage>
+              {[response.startAt, response.endAt]}
+            </EventDate>
+            <RemainingTicket detailPage>
+              {response.remainingTickets}
+            </RemainingTicket>
+            <EndAtDate>{response.endAt}</EndAtDate>
+
+            <DescriptionWrapper>{response.description}</DescriptionWrapper>
+          </EventWrapper>
+          <span>Liste des participants ({response.numberOfParticipants})</span>
+          <Participants detailPage>
+            {response.numberOfParticipants}
+          </Participants>
+          <Reservation>
+            <Price detailPage>{price === "0.0" ? "Gratuit" : price}</Price>
+          </Reservation>
+        </MainWrapper>
       )}
     </EventDetailsWrapper>
   );

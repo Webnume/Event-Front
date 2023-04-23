@@ -13,7 +13,7 @@ function Image({ url, alt, detailPage }: ImageProps) {
     width:  ${(props) => (props.detailPage ? "834" : "171")}px;
     height: ${(props) => (props.detailPage ? "208px" : "96px")};
     border-radius: 8px;    
-    grid-column: ${(props) => (props.detailPage ? 2 : "1")};
+    grid-column: ${(props) => (props.detailPage ? "2/span 2" : "1")};
     grid-row: ${(props) => (props.detailPage ? 2 : "1 / span 2")}; 
     background-color:${GLOBALS.COLORS.GREY4}}; 
     object-fit: cover;   

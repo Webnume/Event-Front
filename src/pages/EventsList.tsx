@@ -8,7 +8,6 @@ import RemainingTicket from "../components/RemainingTicket";
 import GLOBALS from "../utils/Globals";
 import EventDate from "../components/EventDate";
 import Price from "../components/Price";
-import H3Title from "../components/H3Title";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -29,7 +28,7 @@ function Events() {
     grid-template-columns: 171px 400px repeat(3, 1fr);
     align-items: center;
     margin-bottom: 1rem;
-    background-color: white;
+    background-color: ${GLOBALS.COLORS.WHITE};
     padding: 1rem;
     border-radius: 0.75rem;
     cursor: pointer;
@@ -54,12 +53,10 @@ function Events() {
       {error && <div>error</div>}
       {filtered?.map((event) => (
         <EventWrapper onClick={() => handleOnClick(event.id)} key={event.id}>
-          <Image url={event.image.url} alt={event.title}  />
+          <Image url={event.image.url} alt={event.title} />
           <EventTitle>{event.title}</EventTitle>
           <EventDate>{[event.startAt, event.endAt]}</EventDate>
-          <H3Title column={3}>Participants</H3Title>
           <Participants>{event.numberOfParticipants}</Participants>
-          <H3Title column={4}>Places restantes</H3Title>
           <RemainingTicket>{event.remainingTickets}</RemainingTicket>
           <Price>{event.price === "0.0" ? "Gratuit" : event.price}</Price>
         </EventWrapper>

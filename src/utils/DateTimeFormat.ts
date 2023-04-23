@@ -1,0 +1,15 @@
+function formatDate(string: string, displayYear = false) {
+  var options = {
+    month: "long",
+    day: "numeric",
+    year: displayYear ? "numeric" : undefined,
+  };
+  return new Date(string).toLocaleDateString([], options);
+}
+
+function formatTime(string: string) {
+  var options = { hour: "numeric", minute: "numeric" };
+  return new Date(string).toLocaleTimeString([], options);
+}
+
+export { formatDate, formatTime };

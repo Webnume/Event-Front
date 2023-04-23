@@ -16,7 +16,9 @@ export default {
     LIGHTER_GREY: "rgba(192, 196, 207, 0.3)",
     LIME: " #FCFFE6 ",
     LIME2: " #F8FDD9",
+    LIME8:"#567F0A",
     RED6: "#F5222D",
+    WHITE: "#FFFFFF",
     RANDOMCOLORS: ["#FF9C6E", "#69C0FF", "#FF7875", "#95DE64"],
   },
 };
