@@ -48,7 +48,7 @@ function Events() {
 
   return (
     <EventsWrapper>
-      <Filters setNewSearch={setNewSearch} />
+      <Filters setNewSearch={setNewSearch} search={search} />
       {loading && <div>loading...</div>}
       {error && <div>error</div>}
       {filtered?.map((event) => (

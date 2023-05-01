@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { useState } from "react";
 import GLOBALS from "../utils/Globals";
 
 type FiltersProps = {
   setNewSearch: Function;
+  search: string;
 };
 
-function Filters({ setNewSearch }: FiltersProps) {
+function Filters({ setNewSearch, search }: FiltersProps) {
   const EventsStatusWrapper = styled.section`
     display: flex;
     justify-content: start;
@@ -29,15 +29,12 @@ function Filters({ setNewSearch }: FiltersProps) {
       color: ${GLOBALS.COLORS.BLUE6};
     }
   `;
-  const [activeButton, setActiveButton] = useState("A venir");
-
-  const clickedButtonHandler = (name: string) => {
-    setActiveButton(name);
-
-    name === "A venir" ? setNewSearch("active") : setNewSearch("archived");
-  };
 
   const buttons = ["A venir", "Passés"];
+
+  const clickedButtonHandler = (name: string) => {
+    name === "A venir" ? setNewSearch("active") : setNewSearch("archived");
+  };
 
   return (
     <EventsStatusWrapper>
@@ -47,11 +44,13 @@ function Filters({ setNewSearch }: FiltersProps) {
           onClick={() => clickedButtonHandler(buttonName)}
           style={{
             backgroundColor:
-              buttonName === activeButton ? GLOBALS.COLORS.BLUE4 : GLOBALS.COLORS.WHITE,
+              (search === "active" && buttonName === "A venir") ||
+              (search === "archived" && buttonName === "Passés")
+                ? GLOBALS.COLORS.BLUE4
+                : GLOBALS.COLORS.WHITE,
           }}
         >
           {buttonName}
-          {activeButton}
         </Button>
       ))}
     </EventsStatusWrapper>

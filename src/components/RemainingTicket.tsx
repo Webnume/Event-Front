@@ -13,7 +13,7 @@ function RemainingTicket({ children, detailPage }: RemainingTicketProps) {
     flex-direction: column;
     align-items: flex-start;
     margin-left: 1rem;
-    grid-area: ${(props) => (props.detailPage ? "5/2/auto/auto" : "1 / 4 / auto / auto")} } ;
+    grid-area: ${(props) => props.detailPage && "5/2/auto/auto"} } ;
   `;
 
   const Child = styled.span`
@@ -23,7 +23,6 @@ function RemainingTicket({ children, detailPage }: RemainingTicketProps) {
 
   return (
     <RemainingTicketWrapper detailPage={detailPage}>
-      
       <H3Title column={4}>Places restantes</H3Title>
       <Child $child={children}>{children === 0 ? "Complet" : children}</Child>
     </RemainingTicketWrapper>

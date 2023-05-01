@@ -1,3 +1,5 @@
+@import url("https://fonts.cdnfonts.com/css/sf-pro-display");
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -12,6 +14,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+* {
+  font-family: "SF Pro Display", sans-serif;
 }
 
 a {
@@ -35,7 +41,6 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
 
 @media (prefers-color-scheme: light) {
   :root {

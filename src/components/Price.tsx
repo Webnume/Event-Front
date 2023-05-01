@@ -11,14 +11,16 @@ function Price({ children, detailPage }: PriceProps) {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: ${(props) => (props.detailPage ? 388 : 151)}px;
+    max-width: ${(props) => (props.detailPage ? 388 : 151)}px;
+    width: 100%;
     height: ${(props) => (props.detailPage ? "60px" : "100%")};
     border-radius: 8px;
+    grid-column: 5;
+    grid-row: 1 / span 2;
     background-color: ${GLOBALS.COLORS.LIME};
     color: ${GLOBALS.COLORS.GREEN};
     font-size: 20px;
     font-weight: 600;
-    ${(props) => props.detailPage && "grid-area: 2 / 2 / auto / auto; "}} ;
   `;
 
   return <PriceWrapper detailPage={detailPage}>{children}</PriceWrapper>;

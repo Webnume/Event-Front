@@ -14,15 +14,15 @@ function EndAtDate({ children }: EndAtDateProps) {
     align-items: flex-start;
   `;
 
-  const Child = styled.span`
+  const DateWrapper = styled.span`
     color: ${(props) =>
-      props.children < 10 ? GLOBALS.COLORS.RED6 : GLOBALS.COLORS.BLUE6};
+     Number(props.child)  < 10 ? GLOBALS.COLORS.RED6 : GLOBALS.COLORS.BLUE6};
   `;
 
   return (
     <EndAtDateWrapper>
-      <H3Title column={4}>Date de clôture</H3Title>
-      <Child children={children}>{formatDate(children, true)}</Child>
+      <H3Title column={2}>Date de clôture</H3Title>
+      <DateWrapper >{formatDate(children, true)}</DateWrapper>
     </EndAtDateWrapper>
   );
 }

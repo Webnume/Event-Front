@@ -26,8 +26,6 @@ function App() {
     <BrowserRouter  >
     <MainWrapper>
       <H1>Événements</H1>
-      {/* <Events /> */}
-      {/* <EventDetails /> */}
     </MainWrapper>
       <Routes>
         <Route path="/" element={<EventsList/>} />

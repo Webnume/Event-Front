@@ -14,7 +14,7 @@ function EventTitle({ children, detailPage }: EventTitleProps) {
     margin: 0;
     text-align: left;
     margin-left: 1rem;
-    grid-area: ${(props) => (props.detailPage ? "3/2/auto/auto" : "1 / 2 / 2 / 3")} } ;
+    grid-area: ${(props) => (props.detailPage && "3/2/auto/auto" )} } ;
   `;
 
   return (

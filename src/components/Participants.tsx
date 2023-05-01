@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { useAxios } from "../hooks/useAxios";
-import GLOBALS from "../utils/Globals";
 import H3Title from "./H3Title";
+import AvatarGroup from "@mui/material/AvatarGroup";
+import Avatar from "@mui/material/Avatar";
 
 type ParticipantsProps = {
   children: number;
@@ -23,49 +24,7 @@ function Participants({ children, detailPage }: ParticipantsProps) {
     grid-area: ${(props) => props.detailPage && "8 / 2 / auto / auto"} } ;
   `;
 
-  const CirclesWrapper = styled.section`
-    display: flex;
-    align-items: f;
-  `;
-
-  const ParticipantsImageWrapper = styled.section`
-    margin-right: -20px;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: f;
-    justify-content: center;
-    color: ${GLOBALS.COLORS.WHITE};
-    background-color: green;
-    font-weight: 400;
-    font-size: 14px;
-    align-items: center;
-  `;
-
-  const ParticipantsImage = styled.img`
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-  `;
-
-  const ParticipantsNumber = styled.span`
-    border: 1px solid ${GLOBALS.COLORS.LIGHTER_GREY};
-    background-color: ${GLOBALS.COLORS.WHITE};
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: ${GLOBALS.COLORS.GREY8};
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 22px;
-  `;
-
-  const participantWithNoAvatar = (firstName, lastName) => {
+  const participantInitials = (firstName, lastName) => {
     const formatName = (name) => {
       return name.charAt(0).toUpperCase();
     };
@@ -81,27 +40,22 @@ function Participants({ children, detailPage }: ParticipantsProps) {
 
         <H3Title column={3}>Participants</H3Title>
         {response && (
-          <CirclesWrapper>
-            {response.map(
-              (participant, i) =>
-                i < 3 && (
-                  <ParticipantsImageWrapper key={participant.user.id}>
-                    {Object.keys(participant.user.avatar).length !== 0 ? (
-                      <ParticipantsImage
-                        src={participant.user.avatar.url}
-                        alt={participant.user.firstName}
-                      />
-                    ) : (
-                      participantWithNoAvatar(
-                        participant.user.firstName,
-                        participant.user.lastName
-                      )
-                    )}
-                  </ParticipantsImageWrapper>
-                )
-            )}
-            <ParticipantsNumber>{children}</ParticipantsNumber>
-          </CirclesWrapper>
+          <AvatarGroup max={4} spacing={"small"}>
+            {response.map((participant, i) => (
+              <Avatar
+                alt={
+                  participant.user.firstName + " " + participant.user.lastName
+                }
+                sx={{ bgcolor: "red" }}
+                key={participant.user.id}
+              >
+                {participantInitials(
+                  participant.user.firstName,
+                  participant.user.lastName
+                )}
+              </Avatar>
+            ))}
+          </AvatarGroup>
         )}
       </ParticipantsWrapper>
     </>

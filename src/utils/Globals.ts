@@ -2,6 +2,7 @@ export default {
   COLORS: {
     BLUE4: "#EBF7FF",
     BLUE6: "#079CEE",
+    BLACK: "#000000",
     BLACK7: "#000000D9",
     GREY800: "#C5CCD6",
     GREY3: "#FAFAFA",
