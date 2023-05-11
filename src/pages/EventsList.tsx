@@ -24,14 +24,14 @@ function Events() {
   `;
 
   const EventWrapper = styled.section`
-    display: grid;
-    grid-template-columns: 171px 400px repeat(3, 1fr);
+    display: flex;
     align-items: center;
     margin-bottom: 1rem;
     background-color: ${GLOBALS.COLORS.WHITE};
     padding: 1rem;
     border-radius: 0.75rem;
     cursor: pointer;
+    width: 100%;
   `;
 
   const [search, setNewSearch] = useState("active");
@@ -54,8 +54,17 @@ function Events() {
       {filtered?.map((event) => (
         <EventWrapper onClick={() => handleOnClick(event.id)} key={event.id}>
           <Image url={event.image.url} alt={event.title} />
-          <EventTitle>{event.title}</EventTitle>
-          <EventDate>{[event.startAt, event.endAt]}</EventDate>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "flex-start",
+            }}
+          >
+            <EventTitle>{event.title}</EventTitle>
+            <EventDate>{[event.startAt, event.endAt]}</EventDate>
+          </div>
           <Participants>{event.numberOfParticipants}</Participants>
           <RemainingTicket>{event.remainingTickets}</RemainingTicket>
           <Price>{event.price === "0.0" ? "Gratuit" : event.price}</Price>

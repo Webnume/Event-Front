@@ -6,7 +6,6 @@ import Participants from "../components/Participants";
 import RemainingTicket from "../components/RemainingTicket";
 import GLOBALS from "../utils/Globals";
 import EventDate from "../components/EventDate";
-import Price from "../components/Price";
 import H3Title from "../components/H3Title";
 import { useParams } from "react-router-dom";
 import EndAtDate from "../components/EndAtDate";
@@ -22,8 +21,8 @@ function EventDetails() {
 
   const EventDetailsWrapper = styled.section`
     display: flex;
-    gap: 16px;
-    padding: 1em;
+    gap: 1rem;
+    padding: 1rem;
     background: ${GLOBALS.COLORS.GREYBLUE1};
     border-radius: 1rem;
     max-width: 1375px;
@@ -37,29 +36,28 @@ function EventDetails() {
   `;
 
   const WhiteWrapper = styled.section`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
     margin-bottom: 1rem;
     background-color: ${GLOBALS.COLORS.WHITE};
     padding: 1rem 1rem 1rem 1.5rem;
     border-radius: 0.75rem;
-    width: 874px;
     position: relative;
+    width: calc(100% - 2.5rem);
+    display: flex;
+    flex-direction: column;
   `;
 
   const DateEventWrapper = styled.section`
     display: flex;
     flex-direction: column;
-    position:absolute;
-    top:12rem; 
-    left:2.3rem;
-    padding:1rem; 
-    color:${GLOBALS.COLORS.BLUE6};
-    background-color:${GLOBALS.COLORS.BLUE4};
+    position: absolute;
+    top: 12rem;
+    left: 2.3rem;
+    padding: 1rem;
+    color: ${GLOBALS.COLORS.BLUE6};
+    background-color: ${GLOBALS.COLORS.BLUE4};
     border-radius: 12px;
     width: 2rem;
-    `;
+  `;
 
   const ContentWrapper = styled.section`
     display: flex;
@@ -67,8 +65,8 @@ function EventDetails() {
     align-items: flex-start;
     padding: 64px 0px 0px;
     gap: 16px;
-    min-width: 706px;
     align-self: self-end;
+    width: 90%;
   `;
 
   const DescriptionWrapper = styled.p`
@@ -91,7 +89,7 @@ function EventDetails() {
   color:${GLOBALS.COLORS.BLACK}} ;
   `;
 
-  let price = response?.price;
+  let price = response?.price === "0.0" ? "Gratuit" : response?.price;
 
   return (
     <EventDetailsWrapper>
@@ -129,9 +127,7 @@ function EventDetails() {
           </WhiteWrapper>
         </MainWrapper>
       )}
-      <Booking>
-        <Price detailPage>{price === "0.0" ? "Gratuit" : price}</Price>
-      </Booking>
+      <Booking price={price} />
     </EventDetailsWrapper>
   );
 }

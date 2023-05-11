@@ -8,18 +8,14 @@ type H3TitleProps = {
   goBackBreadCrumb?: boolean;
 };
 
-function H3Title({ children, column, goBackBreadCrumb }: H3TitleProps) {
+function H3Title({ children, goBackBreadCrumb }: H3TitleProps) {
   const H3 = styled.h3`
-    font-size: 14px;    
-    margin:0 ;
+    font-size: 14px;
+    margin: 0;
     font-weight: ${(props) => (props.goBackBreadCrumb ? 400 : 600)};
     color: ${(props) =>
       props.goBackBreadCrumb ? GLOBALS.COLORS.GREY5 : GLOBALS.COLORS.GREY7};
-    grid-column: ${column};
-    grid-row: 1;
-    ${(props) =>
-      props.goBackBreadCrumb &&
-      "cursor: pointer;grid-area: 1/1/auto/auto;text-align: start;"}
+    ${(props) => props.goBackBreadCrumb && "cursor: pointer;"}
     &:before {
       padding: ${(props) => (props.goBackBreadCrumb ? "1rem" : "0")};
       content: "${(props) => (props.goBackBreadCrumb ? "<" : "")}";

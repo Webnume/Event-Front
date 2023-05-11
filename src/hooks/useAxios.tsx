@@ -27,7 +27,7 @@ export const useAxios = (axiosParams: AxiosParams) => {
 
   useEffect(() => {
     fetchData(axiosParams);
-  }, []); // execute once only
+  }, []);
 
   return { response, error, loading } as const;
 };

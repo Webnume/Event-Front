@@ -11,9 +11,9 @@ function RemainingTicket({ children, detailPage }: RemainingTicketProps) {
   const RemainingTicketWrapper = styled.section`
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    margin-left: 1rem;
-    grid-area: ${(props) => props.detailPage && "5/2/auto/auto"} } ;
+    align-items: ${(props) => (props.detailPage ? "flex-start" : "center")};
+    width: ${(props) => (props.detailPage ? "" : "100%")};
+    gap: ${(props) => (props.detailPage ? "" : "1rem")};
   `;
 
   const Child = styled.span`

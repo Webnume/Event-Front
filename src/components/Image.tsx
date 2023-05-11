@@ -10,11 +10,9 @@ type ImageProps = {
 
 function Image({ url, alt, detailPage }: ImageProps) {
   const ImageWrapper = styled.img`
-    width:  ${(props) => (props.detailPage ? "834" : "171")}px;
+    width:  ${(props) => (props.detailPage ? "100%" : "171px")};
     height: ${(props) => (props.detailPage ? "208px" : "96px")};
     border-radius: 8px;    
-    grid-column: 1;
-    grid-row: 1 / span 2; 
     background-color:${GLOBALS.COLORS.GREY4}}; 
     object-fit: cover;   
   `;
