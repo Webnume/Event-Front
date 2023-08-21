@@ -1,29 +1,46 @@
 import styled from "styled-components";
-import { useAxios } from "../hooks/useAxios";
 import H3Title from "./H3Title";
 import Avatar from "./Avatar";
-import GLOBALS from "../utils/Globals";
+import GLOBALS from "../utils/constants";
+import { useContext } from "react";
+import BookingsContext from "../context/BookingsContext";
 
-type ParticipantsProps = {
+interface ParticipantsProps {
   detailPage?: boolean;
+  numberOfParticipants?: number;
 };
 
-function Participants({ detailPage }: ParticipantsProps) {
-  const { response, error, loading } = useAxios({
-    method: "GET",
-    url: "/bookings",
-  });
+function Participants({ detailPage, numberOfParticipants }: ParticipantsProps) {
+  const { bookings, bookingsFetchError, boookingsIsLoading } =
+    useContext(BookingsContext);
 
   const ParticipantsWrapper = styled.section`
     display: flex;
     flex-direction: column;
-    align-items: center;
-    position: relative;
+    align-items: ${(props) => (props.detailPage ? "flex-start" : "center")};
     width: ${(props) => (props.detailPage ? "100%" : "10rem")};
+    max-width: 806px;
+    @media screen and (max-width: 1050px) {
+      width: ${(props) => (props.detailPage ? "100%" : "auto")};
+      align-items: flex-start;
+    }
   `;
 
   const AvatarGroup = styled.div`
     display: flex;
+  `;
+
+  const AvatarCount = styled.div`
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: ${GLOBALS.COLORS.BLACK7};
+    background-color: ${GLOBALS.COLORS.GREY3};
+    width: 39px;
+    height: 39px;
+    border-radius: 50%;
+    border: 1px solid ${GLOBALS.COLORS.BLACK};
   `;
 
   const AvatarGroupDetailPage = styled.div`
@@ -52,57 +69,73 @@ function Participants({ detailPage }: ParticipantsProps) {
     gap: 2rem;
     align-items: center;
   `;
+  const ParticipantsTitle = styled.h3`
+ font-weight: 600;
+ font-size: 16px;
+ line-height: 24px;
+ color:${GLOBALS.COLORS.BLACK}} ;
+ `;
+
+  const WhiteWrapper = styled.section`
+    margin-bottom: 1rem;
+    background-color: ${GLOBALS.COLORS.WHITE};
+    padding: 1rem 1rem 1rem 1.5rem;
+    border-radius: 0.75rem;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  `;
 
   return (
     <ParticipantsWrapper detailPage={detailPage}>
-      {loading && <div>loading...</div>}
-      {error && <div>error</div>}
+      {boookingsIsLoading && <p>Loading participants...</p>}
+      {!boookingsIsLoading && bookingsFetchError && (
+        <p style={{ color: "red" }}>{bookingsFetchError}</p>
+      )}
 
       {!detailPage && <H3Title column={3}>Participants</H3Title>}
-      {!detailPage && response && (
+      {!detailPage && bookings && (
         <AvatarGroup>
-          {response.map(
+          {bookings.map(
             (participant, i) =>
               i < 3 && (
                 <Avatar participant={participant} key={participant.user.id} />
               )
           )}
-          <div
-            style={{
-              zIndex: 1,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: GLOBALS.COLORS.BLACK7,
-              backgroundColor: GLOBALS.COLORS.GREY3,
-              width: "39px",
-              height: "39px",
-              borderRadius: "50%",
-              border: " 1px solid" + GLOBALS.COLORS.BLACK,
-            }}
-          >
-            {Object.keys(response).length > 3 && Object.keys(response).length}
-          </div>
+          <AvatarCount>
+            {Object.keys(bookings).length > 3 && Object.keys(bookings).length}
+          </AvatarCount>
         </AvatarGroup>
       )}
-      {detailPage && response && (
-        <AvatarGroupDetailPage>
-          <ParticipantBar top={true}>
-            <span>Salarié</span>
-            <span>Quantité réservée</span>
-          </ParticipantBar>
-          {response.map((participant) => (
-            <ParticipantBar key={participant.user.id}>
-              <ParticipantLeft>
-                <Avatar participant={participant} />
-                <span>
-                  {participant.user.firstName + " " + participant.user.lastName}
-                </span>
-              </ParticipantLeft>
-              <span>1</span>
-            </ParticipantBar>
-          ))}
-        </AvatarGroupDetailPage>
+
+      {detailPage && bookings && (
+        <>
+          <ParticipantsTitle>
+            Liste des participants ({numberOfParticipants})
+          </ParticipantsTitle>
+          <WhiteWrapper>
+            <AvatarGroupDetailPage>
+              <ParticipantBar top={true}>
+                <span>Salarié</span>
+                <span>Quantité réservée</span>
+              </ParticipantBar>
+              {bookings.map((participant) => (
+                <ParticipantBar key={participant.id}>
+                  <ParticipantLeft>
+                    <Avatar participant={participant} />
+                    <span>
+                      {participant.user.firstName +
+                        " " +
+                        participant.user.lastName}
+                    </span>
+                  </ParticipantLeft>
+                  <span>1</span>
+                </ParticipantBar>
+              ))}
+            </AvatarGroupDetailPage>
+          </WhiteWrapper>
+        </>
       )}
     </ParticipantsWrapper>
   );

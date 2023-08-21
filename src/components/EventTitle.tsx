@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import GLOBALS from "../utils/Globals";
+import GLOBALS from "../utils/constants";
 
-type EventTitleProps = {
+interface EventTitleProps {
   children: string;
   detailPage?: boolean;
 };
@@ -10,17 +10,17 @@ function EventTitle({ children, detailPage }: EventTitleProps) {
   const EventTitleWrapper = styled.h2`
     font-size: 1.2em;
     color: ${GLOBALS.COLORS.GREY9};
-    margin: 0 0 0 1rem;
     text-align: left;
-    ${(props) => !props.detailPage && {textOverflow: "ellipsis",
-    width: "18rem",
-    whiteSpace: "nowrap",
-    overflow: "hidden"}
-}};
+    @media screen and (max-width: 1050px) {
+      margin: 0;
+      margin-top: 1rem;
+    }
   `;
 
   return (
-    <EventTitleWrapper detailPage={detailPage}>{children}</EventTitleWrapper>
+    <EventTitleWrapper detailPage={detailPage}>
+      {children?.length <= 25 ? children : `${children?.slice(0, 25)}...`}
+    </EventTitleWrapper>
   );
 }
 

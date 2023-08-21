@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import DefaultImage from "../assets/calendar_today_FILL1_wght400_GRAD0_opsz48.svg";
-import GLOBALS from "../utils/Globals";
+import GLOBALS from "../utils/constants";
 
-type ImageProps = {
+interface ImageProps {
   url: string;
   alt: string;
   detailPage?: boolean;
@@ -13,8 +13,13 @@ function Image({ url, alt, detailPage }: ImageProps) {
     width:  ${(props) => (props.detailPage ? "100%" : "171px")};
     height: ${(props) => (props.detailPage ? "208px" : "96px")};
     border-radius: 8px;    
-    background-color:${GLOBALS.COLORS.GREY4}}; 
-    object-fit: cover;   
+    background-color:${GLOBALS.COLORS.GREY4}; 
+    object-fit: cover;       
+    @media screen and (max-width: 1050px) {
+      min-width: 298px ;
+      min-height: 96px;
+      max-height: 100px;
+    }
   `;
 
   return (

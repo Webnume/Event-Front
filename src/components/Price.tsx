@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import GLOBALS from "../utils/Globals";
+import GLOBALS from "../utils/constants";
 
-type PriceProps = {
+interface PriceProps {
   children: string;
   detailPage?: boolean;
+  state?: string;
 };
 
-function Price({ children, detailPage }: PriceProps) {
+function Price({ children, detailPage, state }: PriceProps) {
   const PriceWrapper = styled.div`
     display: flex;
     justify-content: center;
@@ -15,16 +16,33 @@ function Price({ children, detailPage }: PriceProps) {
     width: 100%;
     height: ${(props) => (props.detailPage ? "60px" : "96px")};
     border-radius: 8px;
-    background-color: ${GLOBALS.COLORS.LIME};
-    color: ${GLOBALS.COLORS.GREEN};
     font-size: 20px;
     font-weight: 600;
     ${(props) =>
       !props.detailPage &&
       "clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%);"};
+    color: ${(props) =>
+      props.state === "active" || detailPage
+        ? GLOBALS.COLORS.GREEN
+        : GLOBALS.COLORS.GREY6};
+    background-color: ${(props) =>
+      props.state === "active" || detailPage
+        ? GLOBALS.COLORS.LIME
+        : GLOBALS.COLORS.GREY3};
+    @media screen and (max-width: 1050px) {
+      clip-path: unset;
+      width: 100%;
+      min-width: 292px;
+      height: 58px;
+
+    }
   `;
 
-  return <PriceWrapper detailPage={detailPage}>{children}</PriceWrapper>;
+  return (
+    <PriceWrapper detailPage={detailPage} state={state}>
+      {children}
+    </PriceWrapper>
+  );
 }
 
 export default Price;

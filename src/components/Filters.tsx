@@ -1,12 +1,16 @@
 import styled from "styled-components";
-import GLOBALS from "../utils/Globals";
+import GLOBALS from "../utils/constants";
+import { useContext } from "react";
+import EventsContext from "../context/EventsContext";
 
-type FiltersProps = {
-  setNewSearch: Function;
+interface FiltersProps {
+  setSearch: (search: string) => void;
   search: string;
 };
 
-function Filters({ setNewSearch, search }: FiltersProps) {
+function Filters() {
+  const {search, setSearch } = useContext<FiltersProps>(EventsContext);
+
   const EventsStatusWrapper = styled.section`
     display: flex;
     justify-content: start;
@@ -14,7 +18,11 @@ function Filters({ setNewSearch, search }: FiltersProps) {
     margin-bottom: 1rem;
     background-color: ${GLOBALS.COLORS.WHITE};
     width: fit-content;
-    border-radius: 0.5rem;
+    border-radius: 0.5rem;      
+    @media screen and (max-width: 1050px) {
+      justify-content: center;
+      width: 325px;
+    }
   `;
 
   const Button = styled.span`
@@ -28,12 +36,16 @@ function Filters({ setNewSearch, search }: FiltersProps) {
       background: ${GLOBALS.COLORS.BLUE4};
       color: ${GLOBALS.COLORS.BLUE6};
     }
+    
+    @media screen and (max-width: 1050px) {
+      padding: 0.5rem 3rem;
+    }
   `;
 
   const buttons = ["A venir", "Passés"];
 
   const clickedButtonHandler = (name: string) => {
-    name === "A venir" ? setNewSearch("active") : setNewSearch("archived");
+    name === "A venir" ? setSearch("active") : setSearch("archived");
   };
 
   return (

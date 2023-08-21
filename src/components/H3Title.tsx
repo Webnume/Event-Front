@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import GLOBALS from "../utils/Globals";
+import GLOBALS from "../utils/constants";
 import { useNavigate } from "react-router-dom";
 
-type H3TitleProps = {
+interface H3TitleProps  {
   children: string;
   column: number;
   goBackBreadCrumb?: boolean;

@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import GLOBALS from "../utils/Globals";
+import GLOBALS from "../utils/constants";
 import { formatDate, formatTime } from "../utils/DateTimeFormat";
 
-type EventDateProps = {
+interface EventDateProps {
   children: string[];
   detailPage?: boolean;
 };
@@ -14,9 +14,11 @@ function EventDate({ children, detailPage }: EventDateProps) {
     color: ${GLOBALS.COLORS.BLUE6};
     font-weight: ${(props) => (props.detailPage ? 400 : 600)} } ;
     font-size: 1rem;
-    margin: 0 0 0 1rem;
     padding: ${(props) => props.detailPage && "0.5rem 1rem"};
     background-color: ${(props) => props.detailPage && GLOBALS.COLORS.BLUE4} ;
+    @media screen and (max-width: 1050px) {
+      margin: 0;
+    }
   `;
 
   const date = formatDate(children[0]);

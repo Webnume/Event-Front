@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import GLOBALS from "../utils/Globals";
+import GLOBALS from "../utils/constants";
 import H3Title from "./H3Title";
 import { formatDate } from "../utils/DateTimeFormat";
 
-type EndAtDateProps = {
+interface EndAtDateProps {
   children: number;
 };
 

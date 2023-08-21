@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import GLOBALS from "../utils/Globals";
+import GLOBALS from "../utils/constants";
 
-type AvatarProps = {
+interface AvatarProps {
   participant: object;
 };
 

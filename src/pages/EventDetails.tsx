@@ -1,49 +1,59 @@
 import styled from "styled-components";
-import { useAxios } from "../hooks/useAxios";
 import EventTitle from "../components/EventTitle";
 import Image from "../components/Image";
 import Participants from "../components/Participants";
 import RemainingTicket from "../components/RemainingTicket";
-import GLOBALS from "../utils/Globals";
+import GLOBALS from "../utils/constants";
 import EventDate from "../components/EventDate";
 import H3Title from "../components/H3Title";
 import { useParams } from "react-router-dom";
+import useAxiosFetch from "../hooks/useAxiosFetch";
 import EndAtDate from "../components/EndAtDate";
 import Booking from "../components/Booking";
+import { useEffect, useState } from "react";
 
 function EventDetails() {
-  const { eventID } = useParams<{ eventID: string }>();
+  const { id } = useParams<{ id: string }>();
+  const [event, setEvent] = useState();
 
-  const { response, error, loading } = useAxios({
-    method: "GET",
-    url: `/events/${eventID}`,
-  });
+  const { data, fetchError, isLoading } = useAxiosFetch(
+    `${GLOBALS.API.BASE_URL}/events/${id}`
+  );
+
+  useEffect(() => {
+    setEvent(data);
+  }, [data]);
 
   const EventDetailsWrapper = styled.section`
-    display: flex;
-    gap: 1rem;
     padding: 1rem;
     background: ${GLOBALS.COLORS.GREYBLUE1};
     border-radius: 1rem;
-    max-width: 1375px;
+    @media screen and (max-width: 1050px) {
+      flex-direction: column;
+      padding: 0;
+    }
   `;
   const MainWrapper = styled.section`
     display: flex;
-    flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 16px;
+    flex-wrap: wrap;
+    @media screen and (max-width: 1050px) {
+    justify-content:center;
+    }
   `;
 
   const WhiteWrapper = styled.section`
     margin-bottom: 1rem;
     background-color: ${GLOBALS.COLORS.WHITE};
-    padding: 1rem 1rem 1rem 1.5rem;
+    padding: 1rem;
     border-radius: 0.75rem;
     position: relative;
-    width: calc(100% - 2.5rem);
+    width: 100%;
     display: flex;
     flex-direction: column;
+    max-width: 806px;
   `;
 
   const DateEventWrapper = styled.section`
@@ -52,21 +62,30 @@ function EventDetails() {
     position: absolute;
     top: 12rem;
     left: 2.3rem;
-    padding: 1rem;
+    padding: 1rem 2rem;
     color: ${GLOBALS.COLORS.BLUE6};
     background-color: ${GLOBALS.COLORS.BLUE4};
-    border-radius: 12px;
-    width: 2rem;
+    border-radius: .4rem;
+    align-items: center;
+    @media screen and (max-width: 1050px) {
+      top: 6rem;
+      padding: .5rem 1.5rem;
+    }
   `;
 
   const ContentWrapper = styled.section`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 64px 0px 0px;
+    padding: .5rem 0px 0px;
     gap: 16px;
     align-self: self-end;
-    width: 90%;
+    width: 87%;
+    padding: 0 0 0 1rem;
+    @media screen and (max-width: 1050px) {
+      padding: 1.5rem 0px 0px;
+      width: 96%;
+    }
   `;
 
   const DescriptionWrapper = styled.p`
@@ -82,52 +101,42 @@ function EventDetails() {
     gap: 1.5rem;
   `;
 
-  const ParticipantsTitle = styled.h3`
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  color:${GLOBALS.COLORS.BLACK}} ;
-  `;
-
-  let price = response?.price === "0.0" ? "Gratuit" : response?.price;
+  let price = event?.price === "0.0" ? "Gratuit" : event?.price;
 
   return (
     <EventDetailsWrapper>
-      {loading && <div>loading...</div>}
-      {error && <div>error</div>}
-      {response && (
+      {isLoading && <div>loading...</div>}
+      {fetchError && <div>error</div>}
+      {event && (
         <MainWrapper>
-          <H3Title column={1} goBackBreadCrumb>
-            Événements
-          </H3Title>
           <WhiteWrapper>
-            <Image url={response.image.url} alt={response.title} detailPage />
-            <DateEventWrapper>FEV 5</DateEventWrapper>
+            <H3Title column={1} goBackBreadCrumb>
+              Événements
+            </H3Title>
+            <Image url={event.image?.url} alt={event.title} detailPage />
+            <DateEventWrapper>
+              <p>FÉV</p>
+              <p style={{fontSize:"1.5rem", fontWeight:"800"}}>5</p>
+            </DateEventWrapper>
             <ContentWrapper>
-              <EventTitle detailPage>{response.title}</EventTitle>
-              <EventDate detailPage>
-                {[response.startAt, response.endAt]}
-              </EventDate>
+              <EventTitle detailPage>{event.title}</EventTitle>
+              <EventDate detailPage>{[event.startAt, event.endAt]}</EventDate>
               <InfosWrapper>
                 <RemainingTicket detailPage>
-                  {response.remainingTickets}
+                  {event.remainingTickets}
                 </RemainingTicket>
-                <EndAtDate>{response.endAt}</EndAtDate>
+                <EndAtDate>{event.endAt}</EndAtDate>
               </InfosWrapper>
-              <DescriptionWrapper>{response.description}</DescriptionWrapper>
+              <DescriptionWrapper>{event.description}</DescriptionWrapper>
             </ContentWrapper>
           </WhiteWrapper>
-          <ParticipantsTitle>
-            Liste des participants ({response.numberOfParticipants})
-          </ParticipantsTitle>
-          <WhiteWrapper>
-            <Participants detailPage>
-              {response.numberOfParticipants}
-            </Participants>
-          </WhiteWrapper>
+          <Booking price={price} />
+          <Participants
+            detailPage
+            numberOfParticipants={event.numberOfParticipants}
+          />
         </MainWrapper>
       )}
-      <Booking price={price} />
     </EventDetailsWrapper>
   );
 }
