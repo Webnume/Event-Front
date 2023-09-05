@@ -6,25 +6,25 @@ import GLOBALS from "./utils/constants";
 import { EventsProvider } from "./context/EventsContext";
 import { BookingsProvider } from "./context/BookingsContext";
 
+const MainWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 2rem 0;
+  background: ${GLOBALS.COLORS.WHITE};
+  @media screen and (max-width: 1050px) {
+    display: none;
+  }
+`;
+
+const H1 = styled.h1`
+  color: black;
+  font-size: 30px;
+  line-height: 38px;
+  font-weight: 600;
+`;
+
 function App() {
-  const MainWrapper = styled.section`
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    padding: 2rem 0;
-    background: ${GLOBALS.COLORS.WHITE};
-    @media screen and (max-width: 1050px) {
-      display: none;
-    }
-  `;
-
-  const H1 = styled.h1`
-    color: black;
-    font-size: 30px;
-    line-height: 38px;
-    font-weight: 600;
-  `;
-
   return (
     <div className="App">
       <Router>

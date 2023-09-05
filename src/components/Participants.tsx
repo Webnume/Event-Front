@@ -1,18 +1,9 @@
 import styled from "styled-components";
-import H3Title from "./H3Title";
+import H3Title from "./H3Title/H3Title";
 import Avatar from "./Avatar";
 import GLOBALS from "../utils/constants";
 import { useContext } from "react";
 import BookingsContext from "../context/BookingsContext";
-
-interface ParticipantsProps {
-  detailPage?: boolean;
-  numberOfParticipants?: number;
-};
-
-function Participants({ detailPage, numberOfParticipants }: ParticipantsProps) {
-  const { bookings, bookingsFetchError, boookingsIsLoading } =
-    useContext(BookingsContext);
 
   const ParticipantsWrapper = styled.section`
     display: flex;
@@ -86,6 +77,15 @@ function Participants({ detailPage, numberOfParticipants }: ParticipantsProps) {
     display: flex;
     flex-direction: column;
   `;
+interface ParticipantsProps {
+  detailPage?: boolean;
+  numberOfParticipants?: number;
+};
+
+function Participants({ detailPage, numberOfParticipants }: ParticipantsProps) {
+  const { bookings, bookingsFetchError, boookingsIsLoading } =
+    useContext(BookingsContext);
+
 
   return (
     <ParticipantsWrapper detailPage={detailPage}>

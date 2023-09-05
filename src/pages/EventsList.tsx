@@ -11,9 +11,6 @@ import { useContext } from "react";
 import EventsContext from "../context/EventsContext";
 import { useNavigate } from "react-router-dom";
 
-function Events() {
-  const { searchResults, fetchError, isLoading } = useContext(EventsContext);
-
   const EventsWrapper = styled.section`
     display: flex;
     flex-direction: column;
@@ -56,8 +53,11 @@ function Events() {
     display: flex;
     width: 298px;
     justify-content: space-between;
-    margin: 1rem 0  ;
+    margin: 1rem 0;
   `;
+
+function EventsList() {
+  const { searchResults, fetchError, isLoading } = useContext(EventsContext);
 
   const navigate = useNavigate();
 
@@ -103,10 +103,11 @@ function Events() {
           <Price state={event.state}>
             {event.price === "0.0" ? "Gratuit" : event.price}
           </Price>
+
         </EventWrapper>
       ))}
     </EventsWrapper>
   );
 }
 
-export default Events;
+export default EventsList;

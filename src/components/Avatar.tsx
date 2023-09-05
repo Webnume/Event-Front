@@ -1,12 +1,7 @@
 import styled from "styled-components";
 import GLOBALS from "../utils/constants";
 
-interface AvatarProps {
-  participant: object;
-};
-
-function Avatar({ participant }: AvatarProps) {
-  const Avatar = styled.div`
+  const AvatarWrapper = styled.div`
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -22,6 +17,11 @@ function Avatar({ participant }: AvatarProps) {
     margin-right: -1rem;
     z-index: 1;
   `;
+interface AvatarProps {
+  participant: object;
+};
+
+function Avatar({ participant }: AvatarProps) {
 
   const participantInitials = (firstName, lastName) => {
     const formatName = (name) => {
@@ -34,9 +34,9 @@ function Avatar({ participant }: AvatarProps) {
   const { firstName, lastName, color, avatar } = participant.user;
 
   return (
-    <Avatar bgColor={color} bgImg={avatar.url}>
+    <AvatarWrapper bgColor={color} bgImg={avatar.url}>
       {!avatar.url && participantInitials(firstName, lastName)}
-    </Avatar>
+    </AvatarWrapper>
   );
 }
 

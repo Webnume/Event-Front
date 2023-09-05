@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import ReactDom from "react-dom";
 
 const MODAL_STYLES = {
   position: "fixed",
@@ -33,30 +32,38 @@ const CLOSE_MODAL_STYLES = {
   color: "#000",
 };
 
-export default function Modal({ open, children, onClose }) {
+interface ModalProps {
+  open: boolean;
+  children: React.ReactNode;
+  onClose: () => void;
+}
+
+export default function Modal({
+  open,
+  children,
+  onClose,
+}: ModalProps): JSX.Element | null {
   if (!open) return null;
 
   useEffect(() => {
     const handleEscapeKey = (e: KeyboardEvent) => {
       if (e.code === "Escape") {
-         onClose();
+        onClose();
       }
     };
     window.addEventListener("keydown", handleEscapeKey);
     return () => window.removeEventListener("keydown", handleEscapeKey);
   }, []);
 
-  return ReactDom.createPortal(
-    <>
-      <div style={OVERLAY_STYLES} onClick={onClose}/>
-      <div style={MODAL_STYLES}>
-        <button style={CLOSE_MODAL_STYLES} onClick={onClose}>
-          X
-        </button>
-
-        {children}
+  return (
+      <div>
+        <div style={OVERLAY_STYLES} onClick={onClose} />
+        <div style={MODAL_STYLES}>
+          <button style={CLOSE_MODAL_STYLES} onClick={onClose}>
+            X
+          </button>
+          {children}
+        </div>
       </div>
-    </>,
-    document.getElementById("portal")
   );
 }

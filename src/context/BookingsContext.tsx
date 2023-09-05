@@ -29,7 +29,7 @@ interface ContextType {
   setModalIsOpen: (isModalOpen: boolean) => void;
 };
 
-const BookingsContext = createContext<ContextType>(null!);
+const BookingsContext = createContext<ContextType>({} as ContextType);
 
 export const BookingsProvider = ({ children }) => {
   const [bookings, setBookings] = useState([]);

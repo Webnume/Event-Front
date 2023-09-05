@@ -5,24 +5,12 @@ import Participants from "../components/Participants";
 import RemainingTicket from "../components/RemainingTicket";
 import GLOBALS from "../utils/constants";
 import EventDate from "../components/EventDate";
-import H3Title from "../components/H3Title";
+import H3Title from "../components/H3Title/H3Title";
 import { useParams } from "react-router-dom";
 import useAxiosFetch from "../hooks/useAxiosFetch";
-import EndAtDate from "../components/EndAtDate";
-import Booking from "../components/Booking";
+import EndAtDate from "../components/EndAtDate/EndAtDate";
+import Booking from "../components/Booking/Booking";
 import { useEffect, useState } from "react";
-
-function EventDetails() {
-  const { id } = useParams<{ id: string }>();
-  const [event, setEvent] = useState();
-
-  const { data, fetchError, isLoading } = useAxiosFetch(
-    `${GLOBALS.API.BASE_URL}/events/${id}`
-  );
-
-  useEffect(() => {
-    setEvent(data);
-  }, [data]);
 
   const EventDetailsWrapper = styled.section`
     padding: 1rem;
@@ -40,7 +28,7 @@ function EventDetails() {
     gap: 16px;
     flex-wrap: wrap;
     @media screen and (max-width: 1050px) {
-    justify-content:center;
+      justify-content: center;
     }
   `;
 
@@ -65,11 +53,11 @@ function EventDetails() {
     padding: 1rem 2rem;
     color: ${GLOBALS.COLORS.BLUE6};
     background-color: ${GLOBALS.COLORS.BLUE4};
-    border-radius: .4rem;
+    border-radius: 0.4rem;
     align-items: center;
     @media screen and (max-width: 1050px) {
       top: 6rem;
-      padding: .5rem 1.5rem;
+      padding: 0.5rem 1.5rem;
     }
   `;
 
@@ -77,7 +65,7 @@ function EventDetails() {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: .5rem 0px 0px;
+    padding: 0.5rem 0px 0px;
     gap: 16px;
     align-self: self-end;
     width: 87%;
@@ -100,6 +88,18 @@ function EventDetails() {
     display: flex;
     gap: 1.5rem;
   `;
+
+function EventDetails() {
+  const { id } = useParams<{ id: string }>();
+  const [event, setEvent] = useState();
+
+  const { data, fetchError, isLoading } = useAxiosFetch(
+    `${GLOBALS.API.BASE_URL}/events/${id}`
+  );
+
+  useEffect(() => {
+    setEvent(data);
+  }, [data]);
 
   let price = event?.price === "0.0" ? "Gratuit" : event?.price;
 

@@ -3,14 +3,6 @@ import GLOBALS from "../utils/constants";
 import { useContext } from "react";
 import EventsContext from "../context/EventsContext";
 
-interface FiltersProps {
-  setSearch: (search: string) => void;
-  search: string;
-};
-
-function Filters() {
-  const {search, setSearch } = useContext<FiltersProps>(EventsContext);
-
   const EventsStatusWrapper = styled.section`
     display: flex;
     justify-content: start;
@@ -18,7 +10,7 @@ function Filters() {
     margin-bottom: 1rem;
     background-color: ${GLOBALS.COLORS.WHITE};
     width: fit-content;
-    border-radius: 0.5rem;      
+    border-radius: 0.5rem;
     @media screen and (max-width: 1050px) {
       justify-content: center;
       width: 325px;
@@ -36,11 +28,19 @@ function Filters() {
       background: ${GLOBALS.COLORS.BLUE4};
       color: ${GLOBALS.COLORS.BLUE6};
     }
-    
+
     @media screen and (max-width: 1050px) {
       padding: 0.5rem 3rem;
     }
   `;
+interface FiltersProps {
+  setSearch: (search: string) => void;
+  search: string;
+};
+
+function Filters() {
+  const {search, setSearch } = useContext<FiltersProps>(EventsContext);
+
 
   const buttons = ["A venir", "Passés"];
 

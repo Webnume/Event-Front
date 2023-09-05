@@ -7,7 +7,6 @@ interface EventDateProps {
   detailPage?: boolean;
 };
 
-function EventDate({ children, detailPage }: EventDateProps) {
   const EventDateWrapper = styled.h2`
     font-size: 1.2em;
     text-align: center;
@@ -21,6 +20,7 @@ function EventDate({ children, detailPage }: EventDateProps) {
     }
   `;
 
+function EventDate({ children, detailPage }: EventDateProps) {
   const date = formatDate(children[0]);
   const startTime = formatTime(children[0]);
   const endTime = formatTime(children[1]);
