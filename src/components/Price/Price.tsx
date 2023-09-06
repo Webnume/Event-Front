@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import GLOBALS from "../utils/constants";
+import GLOBALS from "../../utils/constants";
 
 const PriceWrapper = styled.div`
   display: flex;

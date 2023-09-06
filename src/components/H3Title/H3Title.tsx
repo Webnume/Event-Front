@@ -16,15 +16,11 @@ const H3 = styled.h3`
 `;
 interface H3TitleProps {
   children: string;
-  column: number;
   goBackBreadCrumb?: boolean;
 }
 
 function H3Title({ children, goBackBreadCrumb }: H3TitleProps) {
   const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/");
-  };
 
   return (
     <H3

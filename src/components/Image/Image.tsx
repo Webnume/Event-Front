@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import DefaultImage from "../assets/calendar_today_FILL1_wght400_GRAD0_opsz48.svg";
-import GLOBALS from "../utils/constants";
+import DefaultImage from "../../assets/calendar_today_FILL1_wght400_GRAD0_opsz48.svg";
+import GLOBALS from "../../utils/constants";
 
 const ImageWrapper = styled.img`
   width: ${(props) => (props.detailPage ? "100%" : "171px")};

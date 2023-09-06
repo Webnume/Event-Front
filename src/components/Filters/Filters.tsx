@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import GLOBALS from "../utils/constants";
+import GLOBALS from "../../utils/constants";
 import { useContext } from "react";
-import EventsContext from "../context/EventsContext";
+import EventsContext from "../../context/EventsContext";
 
   const EventsStatusWrapper = styled.section`
     display: flex;
@@ -24,6 +24,7 @@ import EventsContext from "../context/EventsContext";
     border-radius: 0.5rem;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    border: none;
     &:hover {
       background: ${GLOBALS.COLORS.BLUE4};
       color: ${GLOBALS.COLORS.BLUE6};

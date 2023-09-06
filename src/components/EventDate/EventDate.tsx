@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import GLOBALS from "../utils/constants";
-import { formatDate, formatTime } from "../utils/DateTimeFormat";
+import GLOBALS from "../../utils/constants";
+import { formatDate, formatTime } from "../../utils/DateTimeFormat";
 
 interface EventDateProps {
   children: string[];
@@ -20,7 +20,7 @@ interface EventDateProps {
     }
   `;
 
-function EventDate({ children, detailPage }: EventDateProps) {
+function EventDate({ children, detailPage }: EventDateProps) {  
   const date = formatDate(children[0]);
   const startTime = formatTime(children[0]);
   const endTime = formatTime(children[1]);

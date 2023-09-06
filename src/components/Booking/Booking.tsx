@@ -2,7 +2,7 @@ import styled from "styled-components";
 import BookingsContext from "../../context/BookingsContext";
 import GLOBALS from "../../utils/constants";
 import { useState, useContext } from "react";
-import Price from "../Price";
+import Price from "../Price/Price";
 import api from "../../api/bookings";
 import Modal from "../Modal/Modal";
 import { useParams } from "react-router-dom";
