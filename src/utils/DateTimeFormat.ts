@@ -4,12 +4,12 @@ function formatDate(string: string, displayYear = false) {
     day: "numeric",
     year: displayYear ? "numeric" : undefined,
   };
-  return new Date(string).toLocaleDateString([], options);
+  return new Date(string).toLocaleDateString('fr-FR', options);
 }
 
 function formatTime(string: string) {
   var options = { hour: "numeric", minute: "numeric" };
-  return new Date(string).toLocaleTimeString([], options);
+  return new Date(string).toLocaleTimeString('fr-FR', options);
 }
 
 export { formatDate, formatTime };
