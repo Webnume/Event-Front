@@ -14,7 +14,7 @@ describe("EventDate", () => {
     render(<EventDate children={children}></EventDate>);
 
     expect(
-      screen.getByText(date + " " + startTime + " - " + endTime)
+      screen.getByText(date + " " + startTime + " - " + endTime+2)
     ).toBeInTheDocument();
   });
 });
