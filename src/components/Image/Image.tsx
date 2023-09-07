@@ -3,29 +3,34 @@ import DefaultImage from "../../assets/calendar_today_FILL1_wght400_GRAD0_opsz48
 import GLOBALS from "../../utils/constants";
 
 const ImageWrapper = styled.img`
-  width: ${(props) => (props.detailPage ? "100%" : "171px")};
-  height: ${(props) => (props.detailPage ? "208px" : "96px")};
+  width: ${(props) =>
+    props.detailPage ? "100%" : props.errorPage ? "" : "171px"};
+  height: ${(props) =>
+    props.detailPage ? "208px" : props.errorPage ? "70vh" : "96px"};
   border-radius: 8px;
   background-color: ${GLOBALS.COLORS.GREY4};
   object-fit: cover;
   @media screen and (max-width: 1050px) {
-    min-width: 298px;
+    min-width: ${(props) => (props.errorPage ? "" : "298px")};
     min-height: 96px;
-    max-height: 100px;
+    max-height: ${(props) => (props.errorPage ? "" : "100px")};
+    height: ${(props) => props.errorPage && "37vh"};
   }
 `;
 interface ImageProps {
   url: string;
   alt: string;
   detailPage?: boolean;
+  errorPage?: boolean;
 }
 
-function Image({ url, alt, detailPage }: ImageProps) {
+function Image({ url, alt, detailPage, errorPage }: ImageProps) {
   return (
     <ImageWrapper
       src={url}
       alt={alt}
       detailPage={detailPage}
+      errorPage={errorPage}
       onError={({ currentTarget }) => {
         currentTarget.onerror = null; // prevents looping
         currentTarget.src = DefaultImage;

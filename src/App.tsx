@@ -1,6 +1,7 @@
 import EventsList from "./pages/EventsList";
-import styled from "styled-components";
 import EventDetails from "./pages/EventDetails";
+import Error404 from "./pages/Error404";
+import styled from "styled-components";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import GLOBALS from "./utils/constants";
 import { EventsProvider } from "./context/EventsContext";
@@ -36,7 +37,7 @@ function App() {
             <Routes>
               <Route path="/" element={<EventsList />} />
               <Route path="eventDetails/:id" element={<EventDetails />} />
-              {/* <Route path="*" element={<ErrorPage />} /> */}
+              <Route path="*" element={<Error404 />} />
             </Routes>
           </BookingsProvider>
         </EventsProvider>
