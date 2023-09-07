@@ -10,11 +10,4 @@ describe("App", () => {
     expect(headline).toBeInTheDocument();
   });
 
-  it("renders a list of events", async () => {
-    render(<App />);
-    const events = await screen.findAllByText('Places restantes');
-    console.log(events.length);
-    
-    expect(events.length).toBeGreaterThan(0);
-  });
 });

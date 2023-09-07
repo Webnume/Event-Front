@@ -2,8 +2,7 @@ function formatDate(string: string, displayYear = false) {
   var options = {
     month: "long",
     day: "numeric",
-    year: displayYear ? "numeric" : undefined,
-    timeZone: "UTC",
+    year: displayYear ? "numeric" : undefined
   };
   return new Date(string).toLocaleDateString("fr-FR", options);
 }
