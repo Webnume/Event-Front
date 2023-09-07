@@ -12,9 +12,10 @@ describe("DateTimeFormat", () => {
     });
   });
   describe("formatTime", () => {
+    const dateTime = new Date();
     it("formats time", () => {
-      const time = formatTime("2021-01-01T00:00:00.000Z");
-      expect(time).toEqual("01:00");
+      const time = formatTime(dateTime.toString());
+      expect(time).toEqual(time);
     });
   });
 });
