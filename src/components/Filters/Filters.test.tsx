@@ -8,4 +8,3 @@ describe("Filters", () => {
     expect(screen.getByText("Passés")).toBeInTheDocument();
   });
 });
-a
