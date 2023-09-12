@@ -4,7 +4,7 @@ import GLOBALS from "../../utils/constants";
 
 const ImageWrapper = styled.img`
   width: ${(props) =>
-    props.detailPage ? "100%" : props.errorPage ? "" : "171px"};
+    props.detailPage ? "100%" : props.errorPage || props.loader ? "" : "171px"};
   height: ${(props) =>
     props.detailPage ? "208px" : props.errorPage ? "70vh" : "96px"};
   border-radius: 8px;
@@ -22,15 +22,17 @@ interface ImageProps {
   alt: string;
   detailPage?: boolean;
   errorPage?: boolean;
+  loader?: boolean;
 }
 
-function Image({ url, alt, detailPage, errorPage }: ImageProps) {
+function Image({ url, alt, detailPage, errorPage, loader }: ImageProps) {
   return (
     <ImageWrapper
       src={url}
       alt={alt}
       detailPage={detailPage}
       errorPage={errorPage}
+      loader={loader}
       onError={({ currentTarget }) => {
         currentTarget.onerror = null; // prevents looping
         currentTarget.src = DefaultImage;
