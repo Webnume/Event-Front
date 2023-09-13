@@ -11,6 +11,7 @@ import { useContext } from "react";
 import EventsContext from "../context/EventsContext";
 import { useNavigate } from "react-router-dom";
 import H3Title from "../components/H3Title/H3Title";
+import Loader from "../components/Loader/Loader";
 
 const EventsWrapper = styled.section`
   display: flex;
@@ -76,50 +77,53 @@ function EventsList() {
 
   return (
     <EventsWrapper>
-      {isLoading && <p>Loading events...</p>}
-      {!isLoading && fetchError && <p style={{ color: "red" }}>{fetchError}</p>}
-
-      <Filters />
-      {/* {loading && <div>loading...</div>}
-      {error && <div>error</div>} */}
-      {searchResults?.map((event) => (
-        <EventWrapper
-          state={event.state}
-          onClick={() =>
-            event.state === "active" ? handleOnClick(event.id) : null
-          }
-          key={event.id}
-        >
-          <RightBlock>
-            <Image url={event.image.url} alt={event.title} />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "flex-start",
-              }}
+      {isLoading ? (
+        <Loader />
+      ) :  fetchError ? (
+        <p style={{ color: "red" }}>{fetchError}</p>
+      ) : (
+        <>
+          <Filters />
+          {searchResults?.map((event) => (
+            <EventWrapper
+              state={event.state}
+              onClick={() =>
+                event.state === "active" ? handleOnClick(event.id) : null
+              }
+              key={event.id}
             >
-              <EventTitle>{event.title}</EventTitle>
-              <EventDate>{[event.startAt, event.endAt]}</EventDate>
-            </div>
-          </RightBlock>
-          <LeftBlock>
-            <Participants>{event.numberOfParticipants}</Participants>
+              <RightBlock>
+                <Image url={event.image.url} alt={event.title} />
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <EventTitle>{event.title}</EventTitle>
+                  <EventDate>{[event.startAt, event.endAt]}</EventDate>
+                </div>
+              </RightBlock>
+              <LeftBlock>
+                <Participants>{event.numberOfParticipants}</Participants>
 
-            <RemainingTicketWrapper>
-              <H3Title>Places restantes</H3Title>
-              <RemainingTicket state={event.state}>
-                {event.remainingTickets}
-              </RemainingTicket>
-            </RemainingTicketWrapper>
-          </LeftBlock>
+                <RemainingTicketWrapper>
+                  <H3Title>Places restantes</H3Title>
+                  <RemainingTicket state={event.state}>
+                    {event.remainingTickets}
+                  </RemainingTicket>
+                </RemainingTicketWrapper>
+              </LeftBlock>
 
-          <Price state={event.state}>
-            {event.price === "0.0" ? "Gratuit" : event.price}
-          </Price>
-        </EventWrapper>
-      ))}
+              <Price state={event.state}>
+                {event.price === "0.0" ? "Gratuit" : event.price}
+              </Price>
+            </EventWrapper>
+          ))}
+        </>
+      )}
     </EventsWrapper>
   );
 }

@@ -22,6 +22,7 @@ export default {
     WHITE: "#FFFFFF",
   },
   API: {
-    BASE_URL: "http://localhost:3000",
+    // BASE_URL: "http://localhost:3000",
+    BASE_URL: "https://event-back.onrender.com",
   },
 };

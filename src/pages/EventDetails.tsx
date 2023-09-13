@@ -11,6 +11,7 @@ import useAxiosFetch from "../hooks/useAxiosFetch";
 import EndAtDate from "../components/EndAtDate/EndAtDate";
 import Booking from "../components/Booking/Booking";
 import { useEffect, useState } from "react";
+import Loader from "../components/Loader/Loader";
 
 const EventDetailsWrapper = styled.section`
   padding: 1rem;
@@ -118,41 +119,45 @@ function EventDetails() {
 
   return (
     <EventDetailsWrapper>
-      {isLoading && <div>loading...</div>}
-      {fetchError && <div>error</div>}
-      {event && (
-        <MainWrapper>
-          <WhiteWrapper>
-            <H3Title goBackBreadCrumb>Événements</H3Title>
-            <Image url={event.image?.url} alt={event.title} detailPage />
-            <DateEventWrapper>
-              <p>FÉV</p>
-              <p style={{ fontSize: "1.5rem", fontWeight: "800" }}>5</p>
-            </DateEventWrapper>
-            <ContentWrapper>
-              <EventTitle detailPage>{event.title}</EventTitle>
-              <EventDate detailPage>{[event.startAt, event.endAt]}</EventDate>
-              <InfosWrapper>
-                <RemainingTicketWrapper>
-                  <H3Title>Places restantes</H3Title>
-                  <RemainingTicket detailPage>
-                    {event.remainingTickets}
-                  </RemainingTicket>
-                </RemainingTicketWrapper>
-                <EndAtDateWrapper>
-                  <H3Title>Date de clôture</H3Title>
-                  <EndAtDate>{event.endAt}</EndAtDate>
-                </EndAtDateWrapper>
-              </InfosWrapper>
-              <DescriptionWrapper>{event.description}</DescriptionWrapper>
-            </ContentWrapper>
-          </WhiteWrapper>
-          <Booking price={price} />
-          <Participants
-            detailPage
-            numberOfParticipants={event.numberOfParticipants}
-          />
-        </MainWrapper>
+      {isLoading ? (
+        <Loader/>
+      ) : fetchError ? (
+        <div>error</div>
+      ) : (
+        event && (
+          <MainWrapper>
+            <WhiteWrapper>
+              <H3Title goBackBreadCrumb>Événements</H3Title>
+              <Image url={event.image?.url} alt={event.title} detailPage />
+              <DateEventWrapper>
+                <p>FÉV</p>
+                <p style={{ fontSize: "1.5rem", fontWeight: "800" }}>5</p>
+              </DateEventWrapper>
+              <ContentWrapper>
+                <EventTitle detailPage>{event.title}</EventTitle>
+                <EventDate detailPage>{[event.startAt, event.endAt]}</EventDate>
+                <InfosWrapper>
+                  <RemainingTicketWrapper>
+                    <H3Title>Places restantes</H3Title>
+                    <RemainingTicket detailPage>
+                      {event.remainingTickets}
+                    </RemainingTicket>
+                  </RemainingTicketWrapper>
+                  <EndAtDateWrapper>
+                    <H3Title>Date de clôture</H3Title>
+                    <EndAtDate>{event.endAt}</EndAtDate>
+                  </EndAtDateWrapper>
+                </InfosWrapper>
+                <DescriptionWrapper>{event.description}</DescriptionWrapper>
+              </ContentWrapper>
+            </WhiteWrapper>
+            <Booking price={price} />
+            <Participants
+              detailPage
+              numberOfParticipants={event.numberOfParticipants}
+            />
+          </MainWrapper>
+        )
       )}
     </EventDetailsWrapper>
   );
