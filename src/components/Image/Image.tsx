@@ -11,9 +11,9 @@ const ImageWrapper = styled.img`
   background-color: ${GLOBALS.COLORS.GREY4};
   object-fit: cover;
   @media screen and (max-width: 1050px) {
-    min-width: ${(props) => (props.errorPage ? "" : "298px")};
+    min-width: ${(props) => (props.errorPage || props.loader ? "" : "298px")};
     min-height: 96px;
-    max-height: ${(props) => (props.errorPage ? "" : "100px")};
+    max-height: ${(props) => (props.errorPage || props.loader ? "" : "100px")};
     height: ${(props) => props.errorPage && "37vh"};
   }
 `;

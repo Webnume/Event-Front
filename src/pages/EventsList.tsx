@@ -11,7 +11,7 @@ import { useContext } from "react";
 import EventsContext from "../context/EventsContext";
 import { useNavigate } from "react-router-dom";
 import H3Title from "../components/H3Title/H3Title";
-import loader from "../assets/loader.gif";
+import Loader from "../components/Loader/Loader";
 
 const EventsWrapper = styled.section`
   display: flex;
@@ -78,10 +78,8 @@ function EventsList() {
   return (
     <EventsWrapper>
       {isLoading ? (
-        <div>
-          <Image url={loader} alt="loader" loader></Image>
-        </div>
-      ) : !isLoading && fetchError ? (
+        <Loader />
+      ) :  fetchError ? (
         <p style={{ color: "red" }}>{fetchError}</p>
       ) : (
         <>

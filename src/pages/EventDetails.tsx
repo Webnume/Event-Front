@@ -11,7 +11,7 @@ import useAxiosFetch from "../hooks/useAxiosFetch";
 import EndAtDate from "../components/EndAtDate/EndAtDate";
 import Booking from "../components/Booking/Booking";
 import { useEffect, useState } from "react";
-import loader from "../assets/loader.gif";
+import Loader from "../components/Loader/Loader";
 
 const EventDetailsWrapper = styled.section`
   padding: 1rem;
@@ -120,9 +120,7 @@ function EventDetails() {
   return (
     <EventDetailsWrapper>
       {isLoading ? (
-        <div>
-          <Image url={loader} alt="loader" loader></Image>
-        </div>
+        <Loader/>
       ) : fetchError ? (
         <div>error</div>
       ) : (
