@@ -15,6 +15,8 @@ const ImageWrapper = styled.img`
     min-height: 96px;
     max-height: ${(props) => (props.errorPage || props.loader ? "" : "100px")};
     height: ${(props) => props.errorPage && "37vh"};
+    
+  object-fit: unset;
   }
 `;
 interface ImageProps {
@@ -37,7 +39,7 @@ function Image({ url, alt, detailPage, errorPage, loader }: ImageProps) {
         currentTarget.onerror = null; // prevents looping
         currentTarget.src = DefaultImage;
         currentTarget.style =
-          "padding: 2rem 4.5rem; width: 26.67px; height: 29.33px;";
+          "padding: 2rem 4.5rem;";
       }}
     />
   );
