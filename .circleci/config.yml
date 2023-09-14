@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Run tests
           command: yarn test
-            - run:
+      - run:
           name: Build App
           command: yarn build
       - run:
