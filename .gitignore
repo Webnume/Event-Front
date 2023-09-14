@@ -23,3 +23,6 @@ SeniorFrontend-Test.pdf
 *.njsproj
 *.sln
 *.sw?
+
+# Local Netlify folder
+.netlify
