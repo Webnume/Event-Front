@@ -4,7 +4,7 @@
 `npm install -g json-server` 
 
 ## Launch database
-`json-server --watch db.json`
+`json-server --watch json-server/db.json`
 
 ## Endpoints
 
