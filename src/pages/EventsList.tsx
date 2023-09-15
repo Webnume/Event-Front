@@ -51,6 +51,15 @@ const RightBlock = styled.section`
     flex-direction: column;
   }
 `;
+
+const EventTitleDate = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: 1rem;
+`;
+
 const LeftBlock = styled.section`
   display: flex;
   width: 298px;
@@ -79,7 +88,7 @@ function EventsList() {
     <EventsWrapper>
       {isLoading ? (
         <Loader />
-      ) :  fetchError ? (
+      ) : fetchError ? (
         <p style={{ color: "red" }}>{fetchError}</p>
       ) : (
         <>
@@ -94,17 +103,10 @@ function EventsList() {
             >
               <RightBlock>
                 <Image url={event.image.url} alt={event.title} />
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "flex-start",
-                  }}
-                >
+                <EventTitleDate>
                   <EventTitle>{event.title}</EventTitle>
                   <EventDate>{[event.startAt, event.endAt]}</EventDate>
-                </div>
+                </EventTitleDate>
               </RightBlock>
               <LeftBlock>
                 <Participants>{event.numberOfParticipants}</Participants>
