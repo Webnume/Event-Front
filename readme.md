@@ -69,3 +69,6 @@ Update a booking item
 
 `DELETE /bookings/:id`
 Delete a booking
+
+![events capture 1](src/assets/Events1.png)
+![events capture 2](src/assets/Events2.png)
