@@ -17,23 +17,23 @@ interface Bookings {
   userId: number;
 }
 
-interface ContextType {
+interface BookingsContextType {
   bookings: Bookings[];
   setBookings: (bookings: []) => void;
-  bookingsFetchError: string;
+  bookingsFetchError: string | null;
   bookingsIsLoading: boolean;
   user: User;
-  userFetchError: string;
+  userFetchError: string | null;
   userIsLoading: boolean;
   isModalOpen: boolean;
   setModalIsOpen: (isModalOpen: boolean) => void;
 };
 
-const BookingsContext = createContext<ContextType>({} as ContextType);
+const BookingsContext = createContext<BookingsContextType>({} as BookingsContextType);
 
-export const BookingsProvider = ({ children }) => {
-  const [bookings, setBookings] = useState([]);
-  const [user, setUser] = useState([]);
+export const BookingsProvider = ({ children }: { children: React.ReactNode }) => {
+  const [bookings, setBookings] = useState< any[] >([]);
+  const [user, setUser] = useState< User>({} as User);
   const [isModalOpen, setModalIsOpen] = useState(false);
 
   const {

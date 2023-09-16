@@ -8,7 +8,7 @@ const DateWrapper = styled.span`
 `;
 
 interface EndAtDateProps {
-  children: number;
+  children: string;
 }
 
 function EndAtDate({ children }: EndAtDateProps) {

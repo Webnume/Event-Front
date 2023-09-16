@@ -81,7 +81,7 @@ const DescriptionWrapper = styled.p`
     font-weight: 400;
     font-size: 14px;
     max-width: 706px;
-    color: ${GLOBALS.COLORS.GREY7}};
+    color: ${GLOBALS.COLORS.GREY7};
     text-align: justify;
   `;
 
@@ -102,10 +102,23 @@ const RemainingTicketWrapper = styled.section`
     align-items: flex-start;
   }
 `;
+interface EventProps {
+  id: number;
+  title: string;
+  description: string;
+  state: string;
+  price: string;
+  tickets: number;
+  startAt: string;
+  endAt: string;
+  image: { url: string };
+  remainingTickets: number;
+  numberOfParticipants: number;
+}
 
 function EventDetails() {
   const { id } = useParams<{ id: string }>();
-  const [event, setEvent] = useState();
+  const [event, setEvent] = useState<EventProps>({} as EventProps);
 
   const { data, fetchError, isLoading } = useAxiosFetch(
     `${GLOBALS.API.BASE_URL}/events/${id}`
@@ -115,49 +128,47 @@ function EventDetails() {
     setEvent(data);
   }, [data]);
 
-  let price = event?.price === "0.0" ? "Gratuit" : event?.price;
+  let price = event.price === "0.0" ? "Gratuit" : event.price;
 
   return (
     <EventDetailsWrapper>
       {isLoading ? (
-        <Loader/>
+        <Loader />
       ) : fetchError ? (
         <div>error</div>
       ) : (
-        event && (
-          <MainWrapper>
-            <WhiteWrapper>
-              <H3Title goBackBreadCrumb>Événements</H3Title>
-              <Image url={event.image?.url} alt={event.title} detailPage />
-              <DateEventWrapper>
-                <p>FÉV</p>
-                <p style={{ fontSize: "1.5rem", fontWeight: "800" }}>5</p>
-              </DateEventWrapper>
-              <ContentWrapper>
-                <EventTitle detailPage>{event.title}</EventTitle>
-                <EventDate detailPage>{[event.startAt, event.endAt]}</EventDate>
-                <InfosWrapper>
-                  <RemainingTicketWrapper>
-                    <H3Title>Places restantes</H3Title>
-                    <RemainingTicket detailPage>
-                      {event.remainingTickets}
-                    </RemainingTicket>
-                  </RemainingTicketWrapper>
-                  <EndAtDateWrapper>
-                    <H3Title>Date de clôture</H3Title>
-                    <EndAtDate>{event.endAt}</EndAtDate>
-                  </EndAtDateWrapper>
-                </InfosWrapper>
-                <DescriptionWrapper>{event.description}</DescriptionWrapper>
-              </ContentWrapper>
-            </WhiteWrapper>
-            <Booking price={price} />
-            <Participants
-              detailPage
-              numberOfParticipants={event.numberOfParticipants}
-            />
-          </MainWrapper>
-        )
+        <MainWrapper>
+          <WhiteWrapper>
+            <H3Title goBackBreadCrumb>Événements</H3Title>
+            <Image url={event.image?.url} alt={event.title} detailPage />
+            <DateEventWrapper>
+              <p>FÉV</p>
+              <p style={{ fontSize: "1.5rem", fontWeight: "800" }}>5</p>
+            </DateEventWrapper>
+            <ContentWrapper>
+              <EventTitle detailPage>{event.title}</EventTitle>
+              <EventDate detailPage>{[event.startAt, event.endAt]}</EventDate>
+              <InfosWrapper>
+                <RemainingTicketWrapper>
+                  <H3Title>Places restantes</H3Title>
+                  <RemainingTicket>
+                    {event.remainingTickets}
+                  </RemainingTicket>
+                </RemainingTicketWrapper>
+                <EndAtDateWrapper>
+                  <H3Title>Date de clôture</H3Title>
+                  <EndAtDate>{event.endAt}</EndAtDate>
+                </EndAtDateWrapper>
+              </InfosWrapper>
+              <DescriptionWrapper>{event.description}</DescriptionWrapper>
+            </ContentWrapper>
+          </WhiteWrapper>
+          <Booking price={price} />
+          <Participants
+            detailPage
+            numberOfParticipants={event.numberOfParticipants}
+          />
+        </MainWrapper>
       )}
     </EventDetailsWrapper>
   );

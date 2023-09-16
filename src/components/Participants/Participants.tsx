@@ -5,14 +5,14 @@ import GLOBALS from "../../utils/constants";
 import { useContext } from "react";
 import BookingsContext from "../../context/BookingsContext";
 
-const ParticipantsWrapper = styled.section`
+const ParticipantsWrapper = styled.section<{ $detailPage?: boolean}>`
   display: flex;
   flex-direction: column;
-  align-items: ${(props) => (props.detailPage ? "flex-start" : "center")};
-  width: ${(props) => (props.detailPage ? "100%" : "10rem")};
+  align-items: ${(props) => (props.$detailPage ? "flex-start" : "center")};
+  width: ${(props) => (props.$detailPage ? "100%" : "10rem")};
   max-width: 806px;
   @media screen and (max-width: 1050px) {
-    width: ${(props) => (props.detailPage ? "100%" : "auto")};
+    width: ${(props) => (props.$detailPage ? "100%" : "auto")};
     align-items: flex-start;
   }
 `;
@@ -41,7 +41,7 @@ const AvatarGroupDetailPage = styled.div`
   gap: 1rem;
   width: 100%;
 `;
-const ParticipantBar = styled.div`
+const ParticipantBar = styled.div<{ top?: boolean | undefined }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -60,11 +60,11 @@ const ParticipantLeft = styled.div`
   align-items: center;
 `;
 const ParticipantsTitle = styled.h3`
- font-weight: 600;
- font-size: 16px;
- line-height: 24px;
- color:${GLOBALS.COLORS.BLACK}} ;
- `;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: ${GLOBALS.COLORS.BLACK};
+`;
 
 const WhiteWrapper = styled.section`
   margin-bottom: 1rem;
@@ -82,13 +82,13 @@ interface ParticipantsProps {
 }
 
 function Participants({ detailPage, numberOfParticipants }: ParticipantsProps) {
-  const { bookings, bookingsFetchError, boookingsIsLoading } =
+  const { bookings, bookingsFetchError, bookingsIsLoading } =
     useContext(BookingsContext);
 
   return (
-    <ParticipantsWrapper detailPage={detailPage}>
-      {boookingsIsLoading && <p>Loading participants...</p>}
-      {!boookingsIsLoading && bookingsFetchError && (
+    <ParticipantsWrapper $detailPage={detailPage}>
+      {bookingsIsLoading && <p>Loading participants...</p>}
+      {!bookingsIsLoading && bookingsFetchError && (
         <p style={{ color: "red" }}>{bookingsFetchError}</p>
       )}
 

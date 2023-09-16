@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import GLOBALS from "../../utils/constants";
 
-const PriceWrapper = styled.div`
+const PriceWrapper = styled.div<{ detailPage?: boolean; state?: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
