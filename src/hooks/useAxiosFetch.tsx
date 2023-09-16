@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const useAxiosFetch = (dataUrl:string) => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<any[]>([]);
     const [fetchError, setFetchError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -10,7 +10,7 @@ const useAxiosFetch = (dataUrl:string) => {
         let isMounted = true;
         const source = axios.CancelToken.source();
 
-        const fetchData = async (url) => {
+        const fetchData = async (url:string) => {
             setIsLoading(true);
             try {
                 const response = await axios.get(url, {
@@ -20,7 +20,7 @@ const useAxiosFetch = (dataUrl:string) => {
                     setData(response.data);
                     setFetchError(null);
                 }
-            } catch (err) {
+            } catch (err : any ) {
                 if (isMounted) {
                     setFetchError(err.message);
                     setData([]);

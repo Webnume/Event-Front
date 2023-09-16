@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import Portal from "../Portal/Portal";
 
 interface BookingProps {
-  price: number;
+  price: string;
 }
 
 const BookingWrapper = styled.div`
@@ -39,10 +39,10 @@ const BookingWrapper = styled.div`
   }
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ $bookedID: number | null }>`
   background-color: ${(props) =>
-    props.bookedID ? GLOBALS.COLORS.WHITE : GLOBALS.COLORS.LIME8};
-  color: ${(props) => (props.bookedID ? "red" : GLOBALS.COLORS.WHITE)};
+    props.$bookedID ? GLOBALS.COLORS.WHITE : GLOBALS.COLORS.LIME8};
+  color: ${(props) => (props.$bookedID ? "red" : GLOBALS.COLORS.WHITE)};
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 400;
@@ -55,11 +55,11 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border: ${(props) => (props.bookedID ? "1px solid red" : "none")};
+  border: ${(props) => (props.$bookedID ? "1px solid red" : "none")};
   transition: all 0.2s ease-in-out;
   &:hover {
     background-color: ${(props) =>
-      props.bookedID ? GLOBALS.COLORS.LIME8 : "#314905"};
+      props.$bookedID ? GLOBALS.COLORS.LIME8 : "#314905"};
     color: ${GLOBALS.COLORS.WHITE};
   }
 `;
@@ -98,8 +98,23 @@ const CancelButton = styled(ConfirmButton)`
   margin-left: 1rem;
 `;
 
+const GlobalWrapper = styled.aside`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 452px;
+  flex: 1;
+  max-width: 806px;
+  width: 100%;
+  @media screen and (max-width: 1050px) {
+    max-width: 806px;
+    flex: unset;
+  }
+`;
+
 function Booking({ price }: BookingProps): JSX.Element {
-  const [bookedID, setBookedID] = useState(null);
+  const [bookedID, setBookedID] = useState<number | null>(null);
   const {
     bookings,
     setBookings,
@@ -113,20 +128,6 @@ function Booking({ price }: BookingProps): JSX.Element {
   } = useContext(BookingsContext);
   const { id } = useParams<{ id: string }>();
 
-  const GlobalWrapper = styled.aside`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    max-width: 452px;
-    flex: 1;
-    max-width: 806px;
-    width: 100%;
-    @media screen and (max-width: 1050px) {
-      max-width: 806px;
-      flex: unset;
-    }
-  `;
   const handleSubmit = async () => {
     const newUser = {
       id: user?.id,
@@ -202,11 +203,7 @@ function Booking({ price }: BookingProps): JSX.Element {
         <Price detailPage>
           {bookedID ? "J'y vais! (1 Place réservée)" : price}
         </Price>
-        <Button
-          // onClick={bookedID ? () => handleDelete(bookedID) : handleSubmit}
-          onClick={() => setModalIsOpen(true)}
-          bookedID={bookedID}
-        >
+        <Button onClick={() => setModalIsOpen(true)} $bookedID={bookedID}>
           {bookedID ? "Modifier ma réservation" : "Réserver"}
         </Button>
       </BookingWrapper>

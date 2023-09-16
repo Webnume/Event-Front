@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import GLOBALS from "../../utils/constants";
 
-const Child = styled.span`
+const Child = styled.span<{ $child: number; $state?: string }>`
   color: ${(props) =>
     props.$state === "active"
       ? props.$child < 10
@@ -11,7 +11,7 @@ const Child = styled.span`
 `;
 interface RemainingTicketProps {
   children: number;
-  detailPage?: boolean;
+  state?: string;
 }
 
 function RemainingTicket({ children, state }: RemainingTicketProps) {

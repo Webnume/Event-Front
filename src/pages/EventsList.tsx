@@ -28,7 +28,7 @@ const EventsWrapper = styled.section`
   }
 `;
 
-const EventWrapper = styled.section`
+const EventWrapper = styled.section<{ state: string }>`
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
@@ -82,7 +82,7 @@ function EventsList() {
 
   const navigate = useNavigate();
 
-  const handleOnClick = (id) => navigate(`/eventDetails/${id}`);
+  const handleOnClick = (id:number) => navigate(`/eventDetails/${id}`);
 
   return (
     <EventsWrapper>

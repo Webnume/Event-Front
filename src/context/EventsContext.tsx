@@ -2,12 +2,35 @@ import { createContext, useState, useEffect } from "react";
 import useAxiosFetch from "../hooks/useAxiosFetch";
 import GLOBALS from "../utils/constants";
 
-const EventsContext = createContext({});
+interface EventContextType {
+  events: EventProps[];
+  setEvents: (events: []) => void;
+  search: string;
+  setSearch: (search: string) => void;
+  searchResults: EventProps[];
+  fetchError: string | null;
+  isLoading: boolean;
+}
 
-export const EventsProvider = ({ children }) => {
-  const [events, setEvents] = useState([]);
-  const [search, setSearch] = useState('active');
-  const [searchResults, setSearchResults] = useState([]);
+interface EventProps {
+  id: number;
+  title: string;
+  description: string;
+  state: string;
+  price: string;
+  tickets: number;
+  startAt: string;
+  endAt: string;
+  image: { url: string };  
+  remainingTickets: number;
+  numberOfParticipants: number;
+}
+const EventsContext = createContext<EventContextType>({} as EventContextType);
+
+export const EventsProvider = ({ children }: { children: React.ReactNode }) => {
+  const [events, setEvents] = useState<EventProps[]>([]);
+  const [search, setSearch] = useState("active");
+  const [searchResults, setSearchResults] = useState<any[]>([]);
 
   const { data, fetchError, isLoading } = useAxiosFetch(
     `${GLOBALS.API.BASE_URL}/events`
@@ -18,11 +41,12 @@ export const EventsProvider = ({ children }) => {
   }, [data]);
 
   useEffect(() => {
-      const filteredResults = events.filter((event) =>
-          ((event.state).toLowerCase()).includes(search.toLowerCase()));
+    const filteredResults = events.filter((event) =>
+      event.state.toLowerCase().includes(search.toLowerCase())
+    );
 
-      setSearchResults(filteredResults.reverse());
-  }, [events, search])
+    setSearchResults(filteredResults.reverse());
+  }, [events, search]);
 
   return (
     <EventsContext.Provider
