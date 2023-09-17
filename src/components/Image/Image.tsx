@@ -2,7 +2,11 @@ import styled from "styled-components";
 import DefaultImage from "../../assets/calendar_today_FILL1_wght400_GRAD0_opsz48.svg";
 import GLOBALS from "../../utils/constants";
 
-const ImageWrapper = styled.img`
+const ImageWrapper = styled.img<{
+  detailPage?: boolean;
+  errorPage?: boolean;
+  loader?: boolean;
+}>`
   width: ${(props) =>
     props.detailPage ? "100%" : props.errorPage || props.loader ? "" : "171px"};
   height: ${(props) =>
@@ -15,8 +19,6 @@ const ImageWrapper = styled.img`
     min-height: 96px;
     max-height: ${(props) => (props.errorPage || props.loader ? "" : "100px")};
     height: ${(props) => props.errorPage && "37vh"};
-    
-  object-fit: unset;
   }
 `;
 interface ImageProps {
@@ -38,8 +40,7 @@ function Image({ url, alt, detailPage, errorPage, loader }: ImageProps) {
       onError={({ currentTarget }) => {
         currentTarget.onerror = null; // prevents looping
         currentTarget.src = DefaultImage;
-        currentTarget.style =
-          "padding: 2rem 4.5rem;";
+        currentTarget.setAttribute("style", "padding: 2rem 4.5rem; object-fit: contain;");
       }}
     />
   );

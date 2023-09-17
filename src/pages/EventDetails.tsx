@@ -125,7 +125,7 @@ function EventDetails() {
   );
 
   useEffect(() => {
-    setEvent(data);
+    setEvent(data as unknown as EventProps);
   }, [data]);
 
   let price = event.price === "0.0" ? "Gratuit" : event.price;
