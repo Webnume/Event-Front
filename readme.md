@@ -16,7 +16,7 @@ This project code quality was tested with [Sonarcloud.io](https://sonarcloud.io/
 |              [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Webnume_Event-Front&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=Webnume_Event-Front)              |  [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Webnume_Event-Front&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Webnume_Event-Front)  |  [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Webnume_Event-Front&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Webnume_Event-Front)  |
 | [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=Webnume_Event-Front&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=Webnume_Event-Front) | [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Webnume_Event-Front&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=Webnume_Event-Front) | [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Webnume_Event-Front&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=Webnume_Event-Front) |
 |                   [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Webnume_Event-Front&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Webnume_Event-Front)                   |    [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Webnume_Event-Front&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Webnume_Event-Front)    |                                                                                                                                                                                            |
-|        [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Webnume_Event-Front&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Webnume_Event-Front) 
+|        [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Webnume_Event-Front&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Webnume_Event-Front)        |  
 
 ## Available Scripts
 
@@ -83,4 +83,4 @@ Update a booking item
 Delete a booking
 
 ![events capture 1](src/assets/Events1.png)
-![events capture 2](src/assets/Events2.png)       |  
+![events capture 2](src/assets/Events2.png)
