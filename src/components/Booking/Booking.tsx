@@ -188,7 +188,7 @@ function Booking({ price }: BookingProps): JSX.Element {
           <ConfirmButton
             onClick={
               bookedStoraged
-                ? () => handleDelete(bookedID ? bookedID : bookedStoraged)
+                ? () => handleDelete(bookedID || bookedStoraged)
                 : handleSubmit
             }
           >
