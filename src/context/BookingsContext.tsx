@@ -53,7 +53,7 @@ export const BookingsProvider = ({ children }: { children: React.ReactNode }) =>
   } = useAxiosFetch(`${GLOBALS.API.BASE_URL}/user`);
 
   useEffect(() => {
-    setUser(userData);
+    setUser(userData as unknown as User);
   }, [userData]);
 
   return (

@@ -1,46 +1,60 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const useAxiosFetch = (dataUrl:string) => {
-    const [data, setData] = useState<any[]>([]);
-    const [fetchError, setFetchError] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+// interface EventProps {
+//     id: number;
+//     title: string;
+//     description: string;
+//     state: string;
+//     price: string;
+//     tickets: number;
+//     startAt: string;
+//     endAt: string;
+//     image: { url: string };
+//     remainingTickets: number;
+//     numberOfParticipants: number;
+//   }
 
-    useEffect(() => {
-        let isMounted = true;
-        const source = axios.CancelToken.source();
+const useAxiosFetch = (dataUrl: string) => {
+  const [data, setData] = useState<any[]>([]);
+  const [fetchError, setFetchError] = useState<null | string>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-        const fetchData = async (url:string) => {
-            setIsLoading(true);
-            try {
-                const response = await axios.get(url, {
-                    cancelToken: source.token
-                });
-                if (isMounted) {
-                    setData(response.data);
-                    setFetchError(null);
-                }
-            } catch (err : any ) {
-                if (isMounted) {
-                    setFetchError(err.message);
-                    setData([]);
-                }
-            } finally {
-                isMounted && setIsLoading(false);
-            }
+  useEffect(() => {
+    let isMounted = true;
+    const source = axios.CancelToken.source();
+
+    const fetchData = async (url: string) => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(url, {
+          cancelToken: source.token,
+        });
+        if (isMounted) {
+          setData(response.data);
+          setFetchError(null);
         }
-
-        fetchData(dataUrl);
-
-        const cleanUp = () => {
-            isMounted = false;
-            source.cancel();
+      } catch (err: any) {
+        if (isMounted) {
+          setFetchError(err.message);
+          setData([]);
         }
+      } finally {
+        isMounted && setIsLoading(false);
+      }
+    };
 
-        return cleanUp;
-    }, [dataUrl]);
+    fetchData(dataUrl);
 
-    return { data, fetchError, isLoading };
-}
+    const cleanUp = () => {
+      isMounted = false;
+      source.cancel();
+    };
+
+    return cleanUp;
+  }, [dataUrl]);
+
+  return { data, fetchError, isLoading };
+};
 
 export default useAxiosFetch;

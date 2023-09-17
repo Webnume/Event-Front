@@ -82,7 +82,7 @@ function EventsList() {
 
   const navigate = useNavigate();
 
-  const handleOnClick = (id:number) => navigate(`/eventDetails/${id}`);
+  const handleOnClick = (id: number) => navigate(`/eventDetails/${id}`);
 
   return (
     <EventsWrapper>
@@ -109,7 +109,9 @@ function EventsList() {
                 </EventTitleDate>
               </RightBlock>
               <LeftBlock>
-                <Participants>{event.numberOfParticipants}</Participants>
+                <Participants
+                  numberOfParticipants={event.numberOfParticipants}
+                />
 
                 <RemainingTicketWrapper>
                   <H3Title>Places restantes</H3Title>

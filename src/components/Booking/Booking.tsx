@@ -149,7 +149,7 @@ function Booking({ price }: BookingProps): JSX.Element {
         newBooking
       );
       const allBookings = [...bookings, response.data];
-      setBookings(allBookings);
+      setBookings(allBookings as any);
       setBookedID(response.data.id);
       localStorage.setItem("booked", JSON.stringify(!bookedID));
       setModalIsOpen(false);
@@ -166,7 +166,7 @@ function Booking({ price }: BookingProps): JSX.Element {
     try {
       await api.delete(`/bookings/${id}`);
       const bookingsList = bookings.filter((booking) => booking.id !== id);
-      setBookings(bookingsList);
+      setBookings(bookingsList as any);
       setBookedID(null);
       localStorage.removeItem("booked");
       setModalIsOpen(false);

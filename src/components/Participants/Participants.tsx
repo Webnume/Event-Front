@@ -83,7 +83,7 @@ interface ParticipantsProps {
 
 function Participants({ detailPage, numberOfParticipants }: ParticipantsProps) {
   const { bookings, bookingsFetchError, bookingsIsLoading } =
-    useContext(BookingsContext);
+    useContext(BookingsContext);    
 
   return (
     <ParticipantsWrapper $detailPage={detailPage}>
