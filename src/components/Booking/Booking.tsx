@@ -91,6 +91,7 @@ const ConfirmButton = styled.button`
   border-radius: 8px;
   font-size: 1rem;
   padding: 0.8rem 1rem;
+  cursor: pointer;
 `;
 
 const CancelButton = styled(ConfirmButton)`
