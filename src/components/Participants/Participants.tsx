@@ -41,7 +41,7 @@ const AvatarGroupDetailPage = styled.div`
   gap: 1rem;
   width: 100%;
 `;
-const ParticipantBar = styled.div<{ top?: boolean | undefined }>`
+const ParticipantBar = styled.div<{ top?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;

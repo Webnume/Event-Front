@@ -6,7 +6,6 @@ import Price from "../Price/Price";
 import api from "../../api/bookings";
 import Modal from "../Modal/Modal";
 import Portal from "../Portal/Portal";
-import { useParams } from "react-router-dom";
 
 interface BookingProps {
   price: string;
@@ -122,11 +121,7 @@ function Booking({ price }: BookingProps): JSX.Element {
   const {
     bookings,
     setBookings,
-    bookingsFetchError,
-    bookingsIsLoading,
     user,
-    userFetchError,
-    userIsLoading,
     isModalOpen,
     setModalIsOpen,
   } = useContext(BookingsContext);

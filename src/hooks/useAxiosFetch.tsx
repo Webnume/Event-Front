@@ -1,20 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-// interface EventProps {
-//     id: number;
-//     title: string;
-//     description: string;
-//     state: string;
-//     price: string;
-//     tickets: number;
-//     startAt: string;
-//     endAt: string;
-//     image: { url: string };
-//     remainingTickets: number;
-//     numberOfParticipants: number;
-//   }
-
 const useAxiosFetch = (dataUrl: string) => {
   const [data, setData] = useState<any[]>([]);
   const [fetchError, setFetchError] = useState<null | string>(null);

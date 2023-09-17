@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useMemo } from "react";
 import useAxiosFetch from "../hooks/useAxiosFetch";
 import GLOBALS from "../utils/constants";
 
@@ -21,7 +21,7 @@ interface EventProps {
   tickets: number;
   startAt: string;
   endAt: string;
-  image: { url: string };  
+  image: { url: string };
   remainingTickets: number;
   numberOfParticipants: number;
 }
@@ -48,18 +48,21 @@ export const EventsProvider = ({ children }: { children: React.ReactNode }) => {
     setSearchResults(filteredResults.reverse());
   }, [events, search]);
 
+  const eventsContextValue = useMemo(
+    () => ({
+      search,
+      setSearch,
+      searchResults,
+      fetchError,
+      isLoading,
+      events,
+      setEvents,
+    }),
+    [search, setSearch, searchResults, fetchError, isLoading, events, setEvents]
+  );
+
   return (
-    <EventsContext.Provider
-      value={{
-        search,
-        setSearch,
-        searchResults,
-        fetchError,
-        isLoading,
-        events,
-        setEvents,
-      }}
-    >
+    <EventsContext.Provider value={eventsContextValue}>
       {children}
     </EventsContext.Provider>
   );

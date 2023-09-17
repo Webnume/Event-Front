@@ -44,10 +44,6 @@ export default function Modal({
   children,
   onClose,
 }: ModalProps): JSX.Element | null {
-  if (!open) {
-    return null;
-  }
-
   useEffect(() => {
     const handleEscapeKey = (e: KeyboardEvent) => {
       if (e.code === "Escape") {
@@ -58,13 +54,14 @@ export default function Modal({
     return () => window.removeEventListener("keydown", handleEscapeKey);
   }, []);
 
+  if (!open) {
+    return null;
+  }
   return (
     <div>
       <OverlayWrapper onClick={onClose} />
       <ModalWrapper>
-        <CloseModalWrapper onClick={onClose}>
-          X
-        </CloseModalWrapper>
+        <CloseModalWrapper onClick={onClose}>X</CloseModalWrapper>
         {children}
       </ModalWrapper>
     </div>
