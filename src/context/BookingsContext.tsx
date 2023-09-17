@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useMemo } from "react";
 import useAxiosFetch from "../hooks/useAxiosFetch";
 import GLOBALS from "../utils/constants";
 
@@ -27,13 +27,19 @@ interface BookingsContextType {
   userIsLoading: boolean;
   isModalOpen: boolean;
   setModalIsOpen: (isModalOpen: boolean) => void;
-};
+}
 
-const BookingsContext = createContext<BookingsContextType>({} as BookingsContextType);
+const BookingsContext = createContext<BookingsContextType>(
+  {} as BookingsContextType
+);
 
-export const BookingsProvider = ({ children }: { children: React.ReactNode }) => {
-  const [bookings, setBookings] = useState< any[] >([]);
-  const [user, setUser] = useState< User>({} as User);
+export const BookingsProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [bookings, setBookings] = useState<any[]>([]);
+  const [user, setUser] = useState<User>({} as User);
   const [isModalOpen, setModalIsOpen] = useState(false);
 
   const {
@@ -56,9 +62,9 @@ export const BookingsProvider = ({ children }: { children: React.ReactNode }) =>
     setUser(userData as unknown as User);
   }, [userData]);
 
-  return (
-    <BookingsContext.Provider
-      value={{
+  const bookingContextValue = useMemo(
+    () =>
+      ({
         bookings,
         setBookings,
         bookingsFetchError,
@@ -68,8 +74,22 @@ export const BookingsProvider = ({ children }: { children: React.ReactNode }) =>
         userIsLoading,
         isModalOpen,
         setModalIsOpen,
-      }}
-    >
+      } as BookingsContextType),
+    [
+      bookings,
+      setBookings,
+      bookingsFetchError,
+      bookingsIsLoading,
+      user,
+      userFetchError,
+      userIsLoading,
+      isModalOpen,
+      setModalIsOpen,
+    ]
+  );
+
+  return (
+    <BookingsContext.Provider value={bookingContextValue}>
       {children}
     </BookingsContext.Provider>
   );
