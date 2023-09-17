@@ -5,8 +5,8 @@ import { useState, useContext } from "react";
 import Price from "../Price/Price";
 import api from "../../api/bookings";
 import Modal from "../Modal/Modal";
-import { useParams } from "react-router-dom";
 import Portal from "../Portal/Portal";
+import { useParams } from "react-router-dom";
 
 interface BookingProps {
   price: string;
@@ -115,6 +115,9 @@ const GlobalWrapper = styled.aside`
 
 function Booking({ price }: BookingProps): JSX.Element {
   const [bookedID, setBookedID] = useState<number | null>(null);
+
+  const bookedStoraged = JSON.parse(localStorage.getItem("bookedStoraged")!);
+
   const {
     bookings,
     setBookings,
@@ -126,7 +129,6 @@ function Booking({ price }: BookingProps): JSX.Element {
     isModalOpen,
     setModalIsOpen,
   } = useContext(BookingsContext);
-  const { id } = useParams<{ id: string }>();
 
   const handleSubmit = async () => {
     const newUser = {
@@ -151,7 +153,10 @@ function Booking({ price }: BookingProps): JSX.Element {
       const allBookings = [...bookings, response.data];
       setBookings(allBookings as any);
       setBookedID(response.data.id);
-      localStorage.setItem("booked", JSON.stringify(!bookedID));
+      localStorage.setItem(
+        "bookedStoraged",
+        JSON.stringify(response.data.id)
+      );
       setModalIsOpen(false);
     } catch (error) {
       if (error instanceof Error) {
@@ -168,7 +173,7 @@ function Booking({ price }: BookingProps): JSX.Element {
       const bookingsList = bookings.filter((booking) => booking.id !== id);
       setBookings(bookingsList as any);
       setBookedID(null);
-      localStorage.removeItem("booked");
+      localStorage.removeItem("bookedStoraged");
       setModalIsOpen(false);
     } catch (err) {
       if (err instanceof Error) {
@@ -179,18 +184,17 @@ function Booking({ price }: BookingProps): JSX.Element {
     }
   };
 
-  // useEffect(() => {
-  //   const bookedStoraged = JSON.parse(localStorage.getItem("booked"));
-  //   bookedStoraged && setBookedID(bookedStoraged);
-  // }, [bookedID]);
-
   return (
     <GlobalWrapper>
       <Portal>
         <Modal open={isModalOpen} onClose={() => setModalIsOpen(false)}>
           <h2>{bookedID ? "Annulation" : "Confirmation"} de la réservation</h2>
           <ConfirmButton
-            onClick={bookedID ? () => handleDelete(bookedID) : handleSubmit}
+            onClick={
+              bookedStoraged
+                ? () => handleDelete(bookedID ? bookedID : bookedStoraged)
+                : handleSubmit
+            }
           >
             Confirmer
           </ConfirmButton>
@@ -201,10 +205,10 @@ function Booking({ price }: BookingProps): JSX.Element {
       </Portal>
       <BookingWrapper>
         <Price detailPage>
-          {bookedID ? "J'y vais! (1 Place réservée)" : price}
+          {bookedStoraged ? "J'y vais! (1 Place réservée)" : price}
         </Price>
-        <Button onClick={() => setModalIsOpen(true)} $bookedID={bookedID}>
-          {bookedID ? "Modifier ma réservation" : "Réserver"}
+        <Button onClick={() => setModalIsOpen(true)} $bookedID={bookedStoraged}>
+          {bookedStoraged ? "Modifier ma réservation" : "Réserver"}
         </Button>
       </BookingWrapper>
       <CancellationPolicy>

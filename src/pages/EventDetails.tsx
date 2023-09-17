@@ -163,7 +163,7 @@ function EventDetails() {
               <DescriptionWrapper>{event.description}</DescriptionWrapper>
             </ContentWrapper>
           </WhiteWrapper>
-          <Booking price={price} />
+          <Booking price={price}/>
           <Participants
             detailPage
             numberOfParticipants={event.numberOfParticipants}
