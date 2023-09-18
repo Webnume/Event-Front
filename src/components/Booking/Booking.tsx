@@ -201,7 +201,7 @@ function Booking({ price }: BookingProps): JSX.Element {
       </Portal>
       <BookingWrapper>
         <Price detailPage>
-          {bookedStoraged ? "J'y vais! (1 Place réservée)" : price}
+          {bookedStoraged ? "🎉 J'y vais! (1 Place réservée)" : price}
         </Price>
         <Button onClick={() => setModalIsOpen(true)} $bookedID={bookedStoraged}>
           {bookedStoraged ? "Modifier ma réservation" : "Réserver"}
