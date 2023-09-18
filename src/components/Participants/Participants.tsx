@@ -40,6 +40,9 @@ const AvatarGroupDetailPage = styled.div`
   align-items: flex-start;
   gap: 1rem;
   width: 100%;
+  @media screen and (max-width: 1050px) {
+    margin-bottom: 8rem;
+  }
 `;
 const ParticipantBar = styled.div<{ top?: boolean }>`
   display: flex;
