@@ -53,7 +53,10 @@ const ParticipantBar = styled.div<{ top?: boolean }>`
   background-color: ${(props) => (props.top ? "green" : GLOBALS.COLORS.WHITE)};
   color: ${(props) => (props.top ? GLOBALS.COLORS.WHITE : "black")};
   border-radius: 0.5rem;
-  padding: ${(props) => props.top && "0 1rem"};
+  padding: ${(props) => props.top && "0 1rem"};  
+  @media screen and (max-width: 1050px) {
+    display:  ${(props) => props.top &&"none"};
+  }
 `;
 
 const ParticipantLeft = styled.div`
@@ -67,6 +70,7 @@ const ParticipantsTitle = styled.h3`
   font-size: 16px;
   line-height: 24px;
   color: ${GLOBALS.COLORS.BLACK};
+  padding: 1rem;
 `;
 
 const WhiteWrapper = styled.section`
