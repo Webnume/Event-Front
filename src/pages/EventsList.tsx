@@ -58,6 +58,7 @@ const EventTitleDate = styled.section`
   justify-content: center;
   align-items: flex-start;
   margin-left: 1rem;
+  min-width: 11rem;
 `;
 
 const LeftBlock = styled.section`
